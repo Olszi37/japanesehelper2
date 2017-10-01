@@ -1,4 +1,4 @@
-package pl.olszak.japanesehelper.japanesehelper.repository;
+package pl.olszak.japanesehelper.japanesehelper.repository.user;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import pl.olszak.japanesehelper.japanesehelper.domain.user.UserEntity;

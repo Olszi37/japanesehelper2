@@ -23,8 +23,9 @@
             <column name="email" type="varchar(255)">
                 <constraints unique="true" nullable="false"/>
             </column>
-            <!--<column name="created" type="timestamp" defaultValueDate="${now}"/>-->
-            <!--<column name="last_modified" type="timestamp"/>-->
+            <column name="authority" type="varchar(255)">
+                <constraints nullable="false"/>
+            </column>
         </createTable>
 
         <createIndex tableName="users" indexName="i_user_login">
@@ -41,8 +42,6 @@
                   file="liquibase/schema/users.csv"
                   separator=";"
                   tableName="users">
-            <!--<column name="created" type="timestamp"/>-->
-            <!--<column name="last_modified" type="timestamp"/>-->
         </loadData>
 
     </changeSet>

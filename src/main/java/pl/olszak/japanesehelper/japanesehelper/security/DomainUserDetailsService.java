@@ -11,7 +11,7 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Component;
 import pl.olszak.japanesehelper.japanesehelper.domain.user.UserEntity;
-import pl.olszak.japanesehelper.japanesehelper.repository.UserRepository;
+import pl.olszak.japanesehelper.japanesehelper.repository.user.UserRepository;
 
 import java.util.List;
 import java.util.Optional;
@@ -34,7 +34,8 @@ public class DomainUserDetailsService implements UserDetailsService{
         if(!userFromDatabase.isPresent()){
             throw new UsernameNotFoundException("User " + login + " was not found in the database");
         }
-        List<GrantedAuthority> authorities = Lists.newArrayList(new SimpleGrantedAuthority("ADMIN"));
+        List<GrantedAuthority> authorities = Lists.newArrayList(
+                new SimpleGrantedAuthority(userFromDatabase.get().getAuthority().toString()));
         return new User(userFromDatabase.get().getLogin(), userFromDatabase.get().getPassword(), authorities);
     }
 }

@@ -10,7 +10,11 @@ public class UserConverter implements Converter<UserEntity, UserDTO> {
 
     @Override
     public UserEntity convertToEntity(UserDTO dto) {
-        return null;
+        UserEntity entity = new UserEntity();
+        entity.setLogin(dto.getLogin());
+        entity.setEmail(dto.getEmail());
+        entity.setAuthority(dto.getAuthorities());
+        return entity;
     }
 
     @Override

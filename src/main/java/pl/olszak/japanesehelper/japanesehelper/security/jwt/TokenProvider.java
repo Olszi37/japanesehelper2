@@ -2,16 +2,14 @@ package pl.olszak.japanesehelper.japanesehelper.security.jwt;
 
 import io.jsonwebtoken.*;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.stereotype.Component;
-import pl.olszak.japanesehelper.japanesehelper.configuration.ApplicationProperties;
 
-import javax.annotation.PostConstruct;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.Date;
@@ -21,25 +19,12 @@ import java.util.stream.Collectors;
 @Component
 public class TokenProvider {
 
-    private ApplicationProperties applicationProperties;
-
     private static final String AUTHORITIES_KEY = "auth";
 
+    @Value("${jwt.secret}")
     private String secretKey;
-
-    private long tokenValidityInSeconds = 86400L;
-
-    @Autowired
-    public TokenProvider(ApplicationProperties applicationProperties){
-        this.applicationProperties = applicationProperties;
-    }
-
-    @PostConstruct
-    public void init(){
-        this.secretKey = applicationProperties.getSecret();
-        this.tokenValidityInSeconds = applicationProperties.getTokenValidityInSeconds();
-        log.debug(secretKey);
-    }
+    @Value("${jwt.token-validity-in-seconds}")
+    private long tokenValidityInSeconds;
 
     public String createToken(Authentication authentication) {
         String authorities = authentication.getAuthorities().stream()
@@ -48,6 +33,8 @@ public class TokenProvider {
 
         long now = (new Date()).getTime();
         Date validity=  new Date(now + 1000 * tokenValidityInSeconds);
+
+        log.debug("DZIALA");
 
         return Jwts.builder()
                 .setSubject(authentication.getName())
