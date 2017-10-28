@@ -1,0 +1,25 @@
+package pl.olszak.japanesehelper.japanesehelper.domain.katakana;
+
+import lombok.Data;
+import pl.olszak.japanesehelper.japanesehelper.domain.record.RecordEntity;
+
+import javax.persistence.*;
+
+@Data
+@Entity
+@Table(name = "katakana_records")
+public class KatakanaRecordEntity extends RecordEntity{
+
+    @Id
+    @Column(name = "id")
+    @SequenceGenerator(
+            name = "katakana_record_id_gen",
+            allocationSize = 1,
+            sequenceName = "katakana_record_seq")
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "katakana_record_id_gen")
+    private Long id;
+
+    @ManyToOne
+    @JoinColumn(name = "katakana_in")
+    private KatakanaEntity katakana;
+}

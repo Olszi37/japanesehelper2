@@ -8,5 +8,11 @@
     <include file="liquibase/changelog/001-users.xml" relativeToChangelogFile="false"/>
     <include file="liquibase/changelog/002-hiragana.xml" relativeToChangelogFile="false"/>
     <include file="liquibase/changelog/003-katakana.xml" relativeToChangelogFile="false"/>
+    <include file="liquibase/changelog/004-kanji.xml" relativeToChangelogFile="false"/>
+    <include file="liquibase/changelog/005-vocabulary.xml" relativeToChangelogFile="false"/>
+    <include file="liquibase/changelog/006-hiragana_record.xml" relativeToChangelogFile="false"/>
+    <include file="liquibase/changelog/007-katakana_record.xml" relativeToChangelogFile="false"/>
+    <include file="liquibase/changelog/008-kanji_record.xml" relativeToChangelogFile="false"/>
+    <include file="liquibase/changelog/009-vocabulary_record.xml" relativeToChangelogFile="false"/>
 
 </databaseChangeLog>

@@ -21,7 +21,7 @@
             </column>
         </createTable>
 
-        <createIndex tableName="katakana" indexName="i_sign_katakana">
+        <createIndex tableName="katakana" indexName="idx_sign_katakana">
             <column name="sign" type="varchar(255)"/>
         </createIndex>
 

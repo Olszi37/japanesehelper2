@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.5.xsd
+                        http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd">
+
+    <property name="now" value="now()" dbms="postgresql"/>
+
+    <changeSet id="009-vocabulary_record" author="olszakm">
+        <createTable tableName="vocabulary_records">
+
+            <column name="id" type="bigint">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+
+            <column name="user_id" type="bigint">
+                <constraints nullable="false"/>
+            </column>
+
+            <column name="vocabulary_id" type="bigint">
+                <constraints nullable="false"/>
+            </column>
+
+            <column name="weight" type="decimal" defaultValueNumeric="0.00">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+
+        <addForeignKeyConstraint baseTableName="vocabulary_records"
+                                 baseColumnNames="user_id"
+                                 constraintName="fk_vocab_rec_user"
+                                 referencedTableName="users"
+                                 referencedColumnNames="id"/>
+
+        <addForeignKeyConstraint baseTableName="vocabulary_records"
+                                 baseColumnNames="vocabulary_id"
+                                 constraintName="fk_vocab_rec_vocab"
+                                 referencedTableName="vocabulary"
+                                 referencedColumnNames="id"/>
+
+        <createIndex tableName="vocabulary_records" indexName="idx_fk_vocab_rec_user">
+            <column name="user_id" type="bigint"/>
+        </createIndex>
+
+        <createIndex tableName="vocabulary_records" indexName="idx_fk_vocab_rec_vocab">
+            <column name="vocabulary_id" type="bigint"/>
+        </createIndex>
+
+        <createSequence sequenceName="vocabulary_record_seq" incrementBy="1" startValue="1"/>
+
+    </changeSet>
+
+</databaseChangeLog>

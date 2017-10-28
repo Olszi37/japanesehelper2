@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import pl.olszak.japanesehelper.japanesehelper.dto.hiraKata.HiraKataDTO;
-import pl.olszak.japanesehelper.japanesehelper.service.katakana.KatakanaService;
+import pl.olszak.japanesehelper.japanesehelper.service.katakana.KatakanaServiceImpl;
 
 import java.util.List;
 import java.util.Optional;
@@ -16,10 +16,10 @@ import java.util.Optional;
 @RequestMapping("/jhelper")
 public class KatakanaController {
 
-    private KatakanaService katakanaService;
+    private KatakanaServiceImpl katakanaService;
 
     @Autowired
-    public KatakanaController(KatakanaService katakanaService) {
+    public KatakanaController(KatakanaServiceImpl katakanaService) {
         this.katakanaService = katakanaService;
     }
 
@@ -31,7 +31,7 @@ public class KatakanaController {
 
     @GetMapping("/katakana/{id}")
     public ResponseEntity<HiraKataDTO> getOne(@PathVariable Long id){
-        Optional<HiraKataDTO> dto = katakanaService.findById(id);
+        Optional<HiraKataDTO> dto = katakanaService.findOne(id);
         if(dto.isPresent()){
             return ResponseEntity.ok(dto.get());
         } else {

@@ -5,7 +5,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import pl.olszak.japanesehelper.japanesehelper.dto.UserDTO;
-import pl.olszak.japanesehelper.japanesehelper.service.user.UserService;
+import pl.olszak.japanesehelper.japanesehelper.service.user.UserServiceImpl;
 
 import javax.validation.Valid;
 import java.util.Optional;
@@ -16,7 +16,7 @@ import java.util.Optional;
 public class UserController {
 
     @Autowired
-    private UserService service;
+    private UserServiceImpl service;
 
     @PostMapping("/user")
     public ResponseEntity<UserDTO> save(@Valid @RequestBody UserDTO dto){
@@ -39,7 +39,7 @@ public class UserController {
     @GetMapping("/user/{id}")
     public ResponseEntity<UserDTO> getOneUser(@PathVariable Long id){
         Optional<UserDTO> user;
-        user = service.findById(id);
+        user = service.findOne(id);
         if(user.isPresent()){
             return ResponseEntity.ok(user.get());
         }

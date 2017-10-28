@@ -7,41 +7,37 @@
                         http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd">
 
     <property name="now" value="now()" dbms="postgresql"/>
-    <property name="autoIncrement" value="true"/>
 
-    <changeSet id="001-users" author="olszakm">
-        <createTable tableName="users">
+    <changeSet id="005-vocabulary" author="olszakm">
+        <createTable tableName="vocabulary">
             <column name="id" type="bigint">
                 <constraints primaryKey="true" nullable="false"/>
             </column>
-            <column name="login" type="varchar(100)">
-                <constraints unique="true" nullable="false"/>
-            </column>
-            <column name="password" type="varchar(255)">
+            <column name="word" type="varchar(255)">
                 <constraints nullable="false"/>
             </column>
-            <column name="email" type="varchar(255)">
-                <constraints unique="true" nullable="false"/>
+
+            <column name="furigana" type="varchar(255)">
+                <constraints nullable="true"/>
             </column>
-            <column name="authority" type="varchar(255)">
+
+            <column name="meaning" type="varchar(255)">
                 <constraints nullable="false"/>
+            </column>
+
+            <column name="level" type="varchar(2)">
+                <constraints nullable="true"/>
             </column>
         </createTable>
 
-        <createIndex tableName="users" indexName="idx_user_login">
-            <column name="login" type="varchar(255)"/>
+        <createIndex tableName="vocabulary" indexName="idx_furigana_vocabulary">
+            <column name="furigana" type="varchar(255)"/>
         </createIndex>
-
-        <createIndex tableName="users" indexName="idx_user_email">
-            <column name="email" type="varchar(255)"/>
-        </createIndex>
-
-        <createSequence sequenceName="users_seq" incrementBy="1" startValue="10"/>
 
         <loadData encoding="UTF-8"
-                  file="liquibase/schema/users.csv"
+                  file="liquibase/schema/vocabulary.csv"
                   separator=";"
-                  tableName="users">
+                  tableName="vocabulary">
         </loadData>
 
     </changeSet>

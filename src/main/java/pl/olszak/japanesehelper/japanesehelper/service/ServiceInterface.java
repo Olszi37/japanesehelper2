@@ -1,15 +1,19 @@
 package pl.olszak.japanesehelper.japanesehelper.service;
 
+import pl.olszak.japanesehelper.japanesehelper.domain.EntityInterface;
+import pl.olszak.japanesehelper.japanesehelper.dto.AbstractDTO;
+
+import java.io.Serializable;
 import java.util.List;
 import java.util.Optional;
 
-public interface ServiceInterface<DTO> {
+public interface ServiceInterface<ENTITY extends EntityInterface, DTO extends AbstractDTO, ID extends Serializable> {
 
     List<DTO> findAll();
 
-    Optional<DTO> findById(Long id);
+    Optional<DTO> findOne(ID id);
 
-    DTO save(DTO dto);
+    DTO save(ENTITY entity);
 
-    void delete(DTO dto);
+    void delete(ENTITY entity);
 }

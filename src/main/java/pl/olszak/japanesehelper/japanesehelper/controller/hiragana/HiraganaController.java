@@ -31,7 +31,7 @@ public class HiraganaController {
 
     @GetMapping("/hiragana/{id}")
     public ResponseEntity<HiraKataDTO> getOne(@PathVariable Long id){
-        Optional<HiraKataDTO> dto = hiraganaService.findById(id);
+        Optional<HiraKataDTO> dto = hiraganaService.findOne(id);
         if(dto.isPresent()){
             return ResponseEntity.ok(dto.get());
         } else {

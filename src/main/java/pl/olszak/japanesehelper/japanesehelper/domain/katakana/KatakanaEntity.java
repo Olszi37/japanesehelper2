@@ -17,9 +17,9 @@ public class KatakanaEntity implements EntityInterface {
     @Column(name = "id")
     private Long id;
 
-    @Column(name = "sign")
+    @Column(name = "sign", nullable = false)
     private String sign;
 
-    @Column(name = "reading")
+    @Column(name = "reading", nullable = false)
     private String reading;
 }
