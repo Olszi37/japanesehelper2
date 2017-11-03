@@ -8,4 +8,5 @@ import java.io.Serializable;
 
 @Repository
 public interface RecordRepository<ENTITY extends RecordEntity, ID extends Serializable> extends JpaRepository {
+    //TODO refactor naming the flash object
 }

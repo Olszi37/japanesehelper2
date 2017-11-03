@@ -5,5 +5,5 @@ import pl.olszak.japanesehelper.japanesehelper.service.record.RecordService;
 
 public interface RecordFactory {
 
-    RecordService getService(UserRecordDTO dto);
+    RecordService getService(UserRecordDTO dto) throws Exception;
 }

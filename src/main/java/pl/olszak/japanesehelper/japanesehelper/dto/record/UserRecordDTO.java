@@ -8,8 +8,6 @@ import java.util.List;
 @Data
 public class UserRecordDTO extends AbstractDTO{
 
-    private Long userId;
-
     private FlashcardType type;
 
     private List<FlashcardDTO> flashcards;

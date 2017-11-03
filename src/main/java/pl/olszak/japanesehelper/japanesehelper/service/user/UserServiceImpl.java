@@ -12,6 +12,7 @@ import pl.olszak.japanesehelper.japanesehelper.repository.user.UserRepository;
 import pl.olszak.japanesehelper.japanesehelper.service.AbstractService;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
@@ -43,6 +44,11 @@ public class UserServiceImpl extends AbstractService<UserEntity, UserDTO, Long> 
         entity.setPassword(passwordEncoder.encode(dto.getPassword()));
         entity = userRepository.save(entity);
         return converter.convertToDTO(entity);
+    }
+
+    @Override
+    public Optional<UserEntity> findByLogin(String login) {
+        return userRepository.findOneByLogin(login);
     }
 
     //TODO refactor of saving user - hiding password
