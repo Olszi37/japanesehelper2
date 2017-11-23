@@ -16,4 +16,6 @@ public interface ServiceInterface<ENTITY extends EntityInterface, DTO extends Ab
     DTO save(ENTITY entity);
 
     void delete(ENTITY entity);
+
+    ENTITY findOneEntity(ID id);
 }

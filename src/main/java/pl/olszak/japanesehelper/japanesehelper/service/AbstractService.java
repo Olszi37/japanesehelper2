@@ -44,4 +44,8 @@ public class AbstractService<ENTITY extends EntityInterface, DTO extends Abstrac
     public void delete(ENTITY entity){
         repository.delete(entity);
     }
+
+    public ENTITY findOneEntity(ID id){
+        return repository.getOne(id);
+    }
 }

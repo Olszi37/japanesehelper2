@@ -9,8 +9,6 @@ import pl.olszak.japanesehelper.japanesehelper.dto.hiraKata.HiraKataDTO;
 import pl.olszak.japanesehelper.japanesehelper.repository.hiragana.HiraganaRepository;
 import pl.olszak.japanesehelper.japanesehelper.service.AbstractService;
 
-import java.util.Optional;
-
 @Service
 @Transactional
 public class HiraganaServiceImpl extends AbstractService<HiraganaEntity, HiraKataDTO, Long> implements HiraganaService{
@@ -25,7 +23,7 @@ public class HiraganaServiceImpl extends AbstractService<HiraganaEntity, HiraKat
         this.converter = converter;
     }
 
-    public HiraganaEntity findOneEntity(Long id){
-        return repository.findOne(id);
-    }
+//    public HiraganaEntity findOneEntity(Long id){
+//        return repository.findOne(id);
+//    }
 }

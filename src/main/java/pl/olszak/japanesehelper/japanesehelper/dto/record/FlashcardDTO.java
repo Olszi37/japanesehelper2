@@ -6,6 +6,7 @@ import pl.olszak.japanesehelper.japanesehelper.dto.AbstractDTO;
 @Data
 public class FlashcardDTO extends AbstractDTO {
 
+    private Long recordId;
     private Long id;
     private boolean success;
 }
