@@ -13,15 +13,7 @@ public class RecordFactoryImpl implements RecordFactory {
 
     @Override
     public RecordService getService(UserRecordDTO dto) throws Exception {
-//        if(FlashcardType.HIRAGANA.equals(dto.getType())){
-//            return new HiraganaRecordService();
-//        } else if (FlashcardType.KATAKANA.equals(dto.getType())){
-//            return new KatakanaRecordService();
-//        } else if (FlashcardType.KANJI.equals(dto.getType())){
-//            return new KanjiRecordService();
-//        } else {
-//            return new VocabularyRecordService();
-//        }
+
         for (RecordService service: recordServices){
             if(service.supports(dto.getType())){
                 return service;

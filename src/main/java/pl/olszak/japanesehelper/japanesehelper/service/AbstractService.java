@@ -31,6 +31,11 @@ public class AbstractService<ENTITY extends EntityInterface, DTO extends Abstrac
     }
 
     @Transactional(readOnly = true)
+    public List<ENTITY> findAllEntities(){
+        return repository.findAll();
+    }
+
+    @Transactional(readOnly = true)
     public Optional<DTO> findOne(ID id){
         Optional<ENTITY> entity = Optional.of(repository.findOne(id));
         return entity.map(converter::convertToDTO);

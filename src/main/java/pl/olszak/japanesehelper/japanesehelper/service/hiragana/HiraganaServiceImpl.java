@@ -22,8 +22,4 @@ public class HiraganaServiceImpl extends AbstractService<HiraganaEntity, HiraKat
         this.repository = repository;
         this.converter = converter;
     }
-
-//    public HiraganaEntity findOneEntity(Long id){
-//        return repository.findOne(id);
-//    }
 }

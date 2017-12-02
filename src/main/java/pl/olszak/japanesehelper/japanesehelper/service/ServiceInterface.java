@@ -11,6 +11,8 @@ public interface ServiceInterface<ENTITY extends EntityInterface, DTO extends Ab
 
     List<DTO> findAll();
 
+    List<ENTITY> findAllEntities();
+
     Optional<DTO> findOne(ID id);
 
     DTO save(ENTITY entity);

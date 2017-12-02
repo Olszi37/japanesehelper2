@@ -5,6 +5,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.util.CollectionUtils;
+import pl.olszak.japanesehelper.japanesehelper.domain.enumerated.JLPTLevel;
+import pl.olszak.japanesehelper.japanesehelper.domain.hiragana.HiraganaEntity;
 import pl.olszak.japanesehelper.japanesehelper.domain.hiragana.HiraganaRecordEntity;
 import pl.olszak.japanesehelper.japanesehelper.domain.user.UserEntity;
 import pl.olszak.japanesehelper.japanesehelper.dto.record.FlashcardDTO;
@@ -16,6 +19,7 @@ import pl.olszak.japanesehelper.japanesehelper.service.hiragana.HiraganaService;
 import pl.olszak.japanesehelper.japanesehelper.service.record.RecordService;
 import pl.olszak.japanesehelper.japanesehelper.service.user.UserService;
 
+import javax.persistence.EntityNotFoundException;
 import java.util.List;
 import java.util.Optional;
 
@@ -50,6 +54,8 @@ public class HiraganaRecordService implements RecordService{
         }
     }
 
+    //TODO Another way of saving and fetching flashcards -> simultaneosly fetch and save one card
+
     private HiraganaRecordEntity createOrCalculateRecord(FlashcardDTO flashcardDTO, UserEntity userEntity){
         Optional<HiraganaRecordEntity> entity = getRecord(flashcardDTO.getRecordId());
         if(entity.isPresent()){
@@ -67,6 +73,33 @@ public class HiraganaRecordService implements RecordService{
 
     private Optional<HiraganaRecordEntity> getRecord(Long id){
         return Optional.ofNullable(hiraganaRecordRepository.findOne(id));
+    }
+
+    @Override
+    public List<Object> getFlashcards(JLPTLevel level, int flashCardCount) {
+        UserEntity user = userService.findByLogin(SecurityUtils.getCurrentLoggedUserLogin()).orElseThrow(() -> new EntityNotFoundException("User not found!"));
+        List<HiraganaRecordEntity> records = hiraganaRecordRepository.findAll();
+
+        if(CollectionUtils.isEmpty(records)){
+            saveEmptyRecords(user);
+        }
+
+        return null;
+    }
+
+    private void saveEmptyRecords(UserEntity user){
+        List<HiraganaEntity> hiraganas = hiraganaService.findAllEntities();
+
+        List<HiraganaRecordEntity> recordEntities = Lists.newArrayList();
+
+        hiraganas.forEach(hiragana -> {
+            HiraganaRecordEntity entity = new HiraganaRecordEntity();
+            entity.setUser(user);
+            entity.setHiragana(hiragana);
+            recordEntities.add(entity);
+        });
+
+        hiraganaRecordRepository.save(recordEntities);
     }
 
     @Override
