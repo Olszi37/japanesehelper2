@@ -1,4 +1,4 @@
-package pl.olszak.japanesehelper.japanesehelper;
+package pl.olszak.japanesehelper.japanesehelper.user;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -12,6 +12,7 @@ import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
+import pl.olszak.japanesehelper.japanesehelper.JapanesehelperApplication;
 import pl.olszak.japanesehelper.japanesehelper.controller.user.UserJWTController;
 import pl.olszak.japanesehelper.japanesehelper.dto.LoginDTO;
 import pl.olszak.japanesehelper.japanesehelper.dto.UserDTO;
@@ -70,7 +71,7 @@ public class UserJWTTest {
         loginDTO.setLogin(USER_LOGIN);
         loginDTO.setPassword(USER_PASSWORD);
 
-        restJwtMock.perform(post("jhelper/authorize")
+        restJwtMock.perform(post("/jhelper/authorize")
             .contentType(MediaType.APPLICATION_JSON_UTF8)
             .content(TestUtil.convertObjectToJsonBytes(loginDTO)))
                 .andExpect(status().isOk())

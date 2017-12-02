@@ -1,4 +1,4 @@
-package pl.olszak.japanesehelper.japanesehelper;
+package pl.olszak.japanesehelper.japanesehelper.user;
 
 import org.assertj.core.api.Assertions;
 import org.junit.Before;
@@ -12,10 +12,12 @@ import org.springframework.http.converter.json.MappingJackson2HttpMessageConvert
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
+import pl.olszak.japanesehelper.japanesehelper.JapanesehelperApplication;
 import pl.olszak.japanesehelper.japanesehelper.controller.user.UserController;
 import pl.olszak.japanesehelper.japanesehelper.domain.user.UserEntity;
 import pl.olszak.japanesehelper.japanesehelper.dto.UserDTO;
 import pl.olszak.japanesehelper.japanesehelper.repository.user.UserRepository;
+import pl.olszak.japanesehelper.japanesehelper.service.user.UserService;
 import pl.olszak.japanesehelper.japanesehelper.util.TestUtil;
 
 import java.util.List;
@@ -37,6 +39,9 @@ public class UserTests {
     private UserRepository userRepository;
 
     @Autowired
+    private UserService userService;
+
+    @Autowired
     private MappingJackson2HttpMessageConverter jacksonMessageConverter;
 
     private MockMvc restUserMock;
@@ -44,13 +49,13 @@ public class UserTests {
     @Before
     public void setup(){
         MockitoAnnotations.initMocks(this);
-        UserController userController = new UserController();
+        UserController userController = new UserController(userService);
         this.restUserMock = MockMvcBuilders.standaloneSetup(userController)
                 .setMessageConverters(jacksonMessageConverter).build();
     }
 
     @Test
-    public void createUseTest() throws Exception {
+    public void createUserTest() throws Exception {
 
         int userCountBeforeSave = userRepository.findAll().size();
 
@@ -59,7 +64,7 @@ public class UserTests {
         userDTO.setPassword(USER_PASSWORD);
         userDTO.setEmail(USER_EMAIL);
 
-        restUserMock.perform(post("jhelper/user")
+        restUserMock.perform(post("/jhelper/user")
                 .contentType(MediaType.APPLICATION_JSON_UTF8)
                 .content(TestUtil.convertObjectToJsonBytes(userDTO)))
                 .andExpect(status().isCreated());
@@ -68,7 +73,7 @@ public class UserTests {
 
         Assertions.assertThat(entities).hasSize(userCountBeforeSave + 1);
 
-        UserEntity savedUser = entities.get(userCountBeforeSave + 1);
+        UserEntity savedUser = entities.get(userCountBeforeSave);
 
         Assertions.assertThat(savedUser.getId()).isNotNull();
         Assertions.assertThat(savedUser.getLogin()).isEqualTo(USER_LOGIN);

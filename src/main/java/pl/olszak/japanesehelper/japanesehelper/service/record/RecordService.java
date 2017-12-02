@@ -12,6 +12,8 @@ public interface RecordService {
 
     List<Object> getFlashcards(JLPTLevel level, int flashcardCount);
 
+    Object getFlashcard(JLPTLevel level);
+
     default boolean supports(FlashcardType type){
         return false;
     }

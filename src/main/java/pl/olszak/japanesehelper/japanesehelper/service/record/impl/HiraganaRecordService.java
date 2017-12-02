@@ -5,7 +5,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.util.CollectionUtils;
 import pl.olszak.japanesehelper.japanesehelper.domain.enumerated.JLPTLevel;
 import pl.olszak.japanesehelper.japanesehelper.domain.hiragana.HiraganaEntity;
 import pl.olszak.japanesehelper.japanesehelper.domain.hiragana.HiraganaRecordEntity;
@@ -20,6 +19,7 @@ import pl.olszak.japanesehelper.japanesehelper.service.record.RecordService;
 import pl.olszak.japanesehelper.japanesehelper.service.user.UserService;
 
 import javax.persistence.EntityNotFoundException;
+import java.math.BigDecimal;
 import java.util.List;
 import java.util.Optional;
 
@@ -78,13 +78,35 @@ public class HiraganaRecordService implements RecordService{
     @Override
     public List<Object> getFlashcards(JLPTLevel level, int flashCardCount) {
         UserEntity user = userService.findByLogin(SecurityUtils.getCurrentLoggedUserLogin()).orElseThrow(() -> new EntityNotFoundException("User not found!"));
-        List<HiraganaRecordEntity> records = hiraganaRecordRepository.findAll();
 
-        if(CollectionUtils.isEmpty(records)){
-            saveEmptyRecords(user);
-        }
+        checkForEmptyRecordsAndCreateRecords(user);
 
         return null;
+    }
+
+    @Override
+    public Object getFlashcard(JLPTLevel level) {
+        UserEntity user = userService.findByLogin(SecurityUtils.getCurrentLoggedUserLogin())
+                .orElseThrow(() -> new EntityNotFoundException("User not found!"));
+
+        checkForEmptyRecordsAndCreateRecords(user);
+
+        return getRandomWagedFlashard(user);
+    }
+
+    private void checkForEmptyRecordsAndCreateRecords(UserEntity user){
+        if(hiraganaRecordRepository.findFirstByUser(user).isPresent()){
+            saveEmptyRecords(user);
+        }
+    }
+
+    private HiraganaRecordEntity getRandomWagedFlashard(UserEntity user){
+        double averageWeight = hiraganaRecordRepository.averageWeightByUser(user);
+        BigDecimal weightDown = new BigDecimal(averageWeight - 2);
+        BigDecimal weightUp = new BigDecimal(averageWeight + 2);
+        return hiraganaRecordRepository.
+                findAnyByUserAndWeightBetween(user, weightDown, weightUp)
+                .orElseThrow(() -> new EntityNotFoundException("Error occurred while fetching hiragana record"));
     }
 
     private void saveEmptyRecords(UserEntity user){

@@ -5,6 +5,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import pl.olszak.japanesehelper.japanesehelper.domain.enumerated.JLPTLevel;
 import pl.olszak.japanesehelper.japanesehelper.domain.katakana.KatakanaRecordEntity;
 import pl.olszak.japanesehelper.japanesehelper.domain.user.UserEntity;
 import pl.olszak.japanesehelper.japanesehelper.dto.record.FlashcardDTO;
@@ -46,6 +47,16 @@ public class KatakanaRecordService implements RecordService{
         } else {
             throw new UsernameNotFoundException("User with given login is not found!");
         }
+    }
+
+    @Override
+    public List<Object> getFlashcards(JLPTLevel level, int flashcardCount) {
+        return null;
+    }
+
+    @Override
+    public Object getFlashcard(JLPTLevel level) {
+        return null;
     }
 
     private KatakanaRecordEntity createOrCalculateRecord(FlashcardDTO flashcardDTO, UserEntity userEntity){

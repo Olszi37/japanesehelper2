@@ -6,7 +6,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import pl.olszak.japanesehelper.japanesehelper.dto.UserDTO;
-import pl.olszak.japanesehelper.japanesehelper.service.user.UserServiceImpl;
+import pl.olszak.japanesehelper.japanesehelper.service.user.UserService;
 
 import javax.validation.Valid;
 import java.util.Optional;
@@ -16,8 +16,12 @@ import java.util.Optional;
 @RequestMapping("/jhelper")
 public class UserController {
 
+    private UserService service;
+
     @Autowired
-    private UserServiceImpl service;
+    public UserController(UserService service) {
+        this.service = service;
+    }
 
     @PostMapping("/user")
     public ResponseEntity<UserDTO> save(@Valid @RequestBody UserDTO dto){
@@ -25,7 +29,7 @@ public class UserController {
         try{
             user = service.save(dto);
         } catch (Exception e) {
-            log.error("Can't create user: {}", e);
+            log.error("Can't create user: {}", e.getMessage());
             return ResponseEntity.badRequest().body(null);
         }
 
