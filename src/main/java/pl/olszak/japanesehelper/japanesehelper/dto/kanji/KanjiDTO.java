@@ -7,6 +7,8 @@ import pl.olszak.japanesehelper.japanesehelper.dto.AbstractDTO;
 @Data
 @EqualsAndHashCode(callSuper = true)
 public class KanjiDTO extends AbstractDTO{
+
+    private Long id;
     
     private String sign;
 

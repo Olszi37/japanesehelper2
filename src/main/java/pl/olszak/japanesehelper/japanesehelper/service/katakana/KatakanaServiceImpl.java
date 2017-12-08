@@ -5,13 +5,13 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import pl.olszak.japanesehelper.japanesehelper.converter.katakana.KatakanaConverter;
 import pl.olszak.japanesehelper.japanesehelper.domain.katakana.KatakanaEntity;
-import pl.olszak.japanesehelper.japanesehelper.dto.hiraKata.HiraKataDTO;
+import pl.olszak.japanesehelper.japanesehelper.dto.kana.KanaDTO;
 import pl.olszak.japanesehelper.japanesehelper.repository.katakana.KatakanaRepository;
 import pl.olszak.japanesehelper.japanesehelper.service.AbstractService;
 
 @Service
 @Transactional
-public class KatakanaServiceImpl extends AbstractService<KatakanaEntity, HiraKataDTO, Long> implements KatakanaService{
+public class KatakanaServiceImpl extends AbstractService<KatakanaEntity, KanaDTO, Long> implements KatakanaService{
 
     private KatakanaRepository repository;
 

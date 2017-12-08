@@ -5,13 +5,13 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import pl.olszak.japanesehelper.japanesehelper.converter.hiragana.HiraganaConverter;
 import pl.olszak.japanesehelper.japanesehelper.domain.hiragana.HiraganaEntity;
-import pl.olszak.japanesehelper.japanesehelper.dto.hiraKata.HiraKataDTO;
+import pl.olszak.japanesehelper.japanesehelper.dto.kana.KanaDTO;
 import pl.olszak.japanesehelper.japanesehelper.repository.hiragana.HiraganaRepository;
 import pl.olszak.japanesehelper.japanesehelper.service.AbstractService;
 
 @Service
 @Transactional
-public class HiraganaServiceImpl extends AbstractService<HiraganaEntity, HiraKataDTO, Long> implements HiraganaService{
+public class HiraganaServiceImpl extends AbstractService<HiraganaEntity, KanaDTO, Long> implements HiraganaService{
 
     private HiraganaRepository repository;
     private HiraganaConverter converter;

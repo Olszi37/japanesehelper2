@@ -6,7 +6,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-import pl.olszak.japanesehelper.japanesehelper.dto.hiraKata.HiraKataDTO;
+import pl.olszak.japanesehelper.japanesehelper.dto.kana.KanaDTO;
 import pl.olszak.japanesehelper.japanesehelper.service.hiragana.HiraganaService;
 
 import java.util.List;
@@ -24,14 +24,14 @@ public class HiraganaController {
     }
 
     @GetMapping("/hiragana/all")
-    public ResponseEntity<List<HiraKataDTO>> getAll(){
-        List<HiraKataDTO> kanas = hiraganaService.findAll();
+    public ResponseEntity<List<KanaDTO>> getAll(){
+        List<KanaDTO> kanas = hiraganaService.findAll();
         return ResponseEntity.ok(kanas);
     }
 
     @GetMapping("/hiragana/{id}")
-    public ResponseEntity<HiraKataDTO> getOne(@PathVariable Long id){
-        Optional<HiraKataDTO> dto = hiraganaService.findOne(id);
+    public ResponseEntity<KanaDTO> getOne(@PathVariable Long id){
+        Optional<KanaDTO> dto = hiraganaService.findOne(id);
         if(dto.isPresent()){
             return ResponseEntity.ok(dto.get());
         } else {
