@@ -1,5 +1,6 @@
 package pl.olszak.japanesehelper.japanesehelper.repository.hiragana;
 
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
@@ -8,6 +9,7 @@ import pl.olszak.japanesehelper.japanesehelper.domain.hiragana.HiraganaRecordEnt
 import pl.olszak.japanesehelper.japanesehelper.domain.user.UserEntity;
 
 import java.math.BigDecimal;
+import java.util.List;
 import java.util.Optional;
 
 @Repository
@@ -18,6 +20,6 @@ public interface HiraganaRecordRepository extends JpaRepository<HiraganaRecordEn
     @Query("SELECT AVG(h.weight) FROM HiraganaRecordEntity h WHERE h.user = :user")
     double averageWeightByUser(@Param("user") UserEntity user);
 
-    Optional<HiraganaRecordEntity> findAnyByUserAndWeightBetween(UserEntity userEntity,
-                                                                 BigDecimal min, BigDecimal max);
+    List<HiraganaRecordEntity> findByUserAndWeightBetween(UserEntity userEntity, BigDecimal min, BigDecimal max, Pageable pageable);
+
 }

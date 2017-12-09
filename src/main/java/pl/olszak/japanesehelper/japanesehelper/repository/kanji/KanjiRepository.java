@@ -14,4 +14,6 @@ public interface KanjiRepository extends JpaRepository<KanjiEntity, Long>{
     List<KanjiEntity> findByLevel(JLPTLevel level);
 
     Optional<KanjiEntity> findBySign(String sign);
+
+    List<KanjiEntity> findTop5ByIdNotAndLevel(Long id, JLPTLevel level);
 }

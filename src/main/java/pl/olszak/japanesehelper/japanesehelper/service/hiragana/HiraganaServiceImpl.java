@@ -9,6 +9,8 @@ import pl.olszak.japanesehelper.japanesehelper.dto.kana.KanaDTO;
 import pl.olszak.japanesehelper.japanesehelper.repository.hiragana.HiraganaRepository;
 import pl.olszak.japanesehelper.japanesehelper.service.AbstractService;
 
+import java.util.List;
+
 @Service
 @Transactional
 public class HiraganaServiceImpl extends AbstractService<HiraganaEntity, KanaDTO, Long> implements HiraganaService{
@@ -21,5 +23,10 @@ public class HiraganaServiceImpl extends AbstractService<HiraganaEntity, KanaDTO
         super(converter, repository);
         this.repository = repository;
         this.converter = converter;
+    }
+
+    @Override
+    public List<HiraganaEntity> getOther5Entities(Long id) {
+        return repository.findTop5ByIdNot(id);
     }
 }

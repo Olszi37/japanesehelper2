@@ -2,15 +2,17 @@ package pl.olszak.japanesehelper.japanesehelper.service.record.impl;
 
 import com.google.common.collect.Lists;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import pl.olszak.japanesehelper.japanesehelper.converter.hiragana.HiraganaConverter;
 import pl.olszak.japanesehelper.japanesehelper.domain.enumerated.JLPTLevel;
 import pl.olszak.japanesehelper.japanesehelper.domain.hiragana.HiraganaEntity;
 import pl.olszak.japanesehelper.japanesehelper.domain.hiragana.HiraganaRecordEntity;
 import pl.olszak.japanesehelper.japanesehelper.domain.user.UserEntity;
-import pl.olszak.japanesehelper.japanesehelper.dto.record.FlashcardDTO;
 import pl.olszak.japanesehelper.japanesehelper.dto.record.FlashcardType;
+import pl.olszak.japanesehelper.japanesehelper.dto.record.KanaFlashcardDTO;
 import pl.olszak.japanesehelper.japanesehelper.dto.record.UserRecordDTO;
 import pl.olszak.japanesehelper.japanesehelper.repository.hiragana.HiraganaRecordRepository;
 import pl.olszak.japanesehelper.japanesehelper.security.SecurityUtils;
@@ -21,92 +23,59 @@ import pl.olszak.japanesehelper.japanesehelper.service.user.UserService;
 import javax.persistence.EntityNotFoundException;
 import java.math.BigDecimal;
 import java.util.List;
-import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 @Transactional
-public class HiraganaRecordService implements RecordService{
+public class HiraganaRecordService implements RecordService<KanaFlashcardDTO>{
 
     private HiraganaService hiraganaService;
     private HiraganaRecordRepository hiraganaRecordRepository;
+    private HiraganaConverter hiraganaConverter;
     private UserService userService;
 
     @Autowired
     public HiraganaRecordService(HiraganaService hiraganaService,
                                  HiraganaRecordRepository hiraganaRecordRepository,
-                                 UserService userService) {
+                                 HiraganaConverter hiraganaConverter, UserService userService) {
         this.hiraganaService = hiraganaService;
         this.hiraganaRecordRepository = hiraganaRecordRepository;
+        this.hiraganaConverter = hiraganaConverter;
         this.userService = userService;
     }
 
     @Override
-    public void save(UserRecordDTO recordDTO) {
-        Optional<UserEntity> user = userService.findByLogin(SecurityUtils.getCurrentLoggedUserLogin());
-        if(user.isPresent()){
-            List<HiraganaRecordEntity> hiraganaRecords = Lists.newArrayList();
-            recordDTO.getFlashcards().forEach(flashcard -> {
-                hiraganaRecords.add(createOrCalculateRecord(flashcard, user.get()));
-            });
-            hiraganaRecordRepository.save(hiraganaRecords);
-        } else {
-            throw new UsernameNotFoundException("User with given login is not found!");
-        }
+    public void save(List<UserRecordDTO> recordDTOs) {
+        List<HiraganaRecordEntity> hiraganaRecords = Lists.newArrayList();
+        recordDTOs.forEach(record -> hiraganaRecords.add(calculateRecord(record)));
+        hiraganaRecordRepository.save(hiraganaRecords);
     }
 
-    //TODO Another way of saving and fetching flashcards -> simultaneosly fetch and save one card
-
-    private HiraganaRecordEntity createOrCalculateRecord(FlashcardDTO flashcardDTO, UserEntity userEntity){
-        Optional<HiraganaRecordEntity> entity = getRecord(flashcardDTO.getRecordId());
-        if(entity.isPresent()){
-            HiraganaRecordEntity updatedEntity = entity.get();
-            updatedEntity.calculateWeight(flashcardDTO.isSuccess());
-            return updatedEntity;
-        } else {
-            HiraganaRecordEntity newEntity = new HiraganaRecordEntity();
-            newEntity.setUser(userEntity);
-            newEntity.setHiragana(hiraganaService.findOneEntity(flashcardDTO.getId()));
-            newEntity.calculateWeight(flashcardDTO.isSuccess());
-            return newEntity;
-        }
+    private HiraganaRecordEntity calculateRecord(UserRecordDTO recordDTO){
+        HiraganaRecordEntity entity = getRecord(recordDTO.getRecordId());
+        entity.calculateWeight(recordDTO.isCorrect());
+        return entity;
     }
 
-    private Optional<HiraganaRecordEntity> getRecord(Long id){
-        return Optional.ofNullable(hiraganaRecordRepository.findOne(id));
+    private HiraganaRecordEntity getRecord(Long id){
+        return hiraganaRecordRepository.findOne(id);
     }
 
     @Override
-    public List<Object> getFlashcards(JLPTLevel level, int flashCardCount) {
+    public List<KanaFlashcardDTO> getFlashcards(JLPTLevel level, int flashcardQuantity) {
         UserEntity user = userService.findByLogin(SecurityUtils.getCurrentLoggedUserLogin()).orElseThrow(() -> new EntityNotFoundException("User not found!"));
 
-        checkForEmptyRecordsAndCreateRecords(user);
+        createRecordsIfHiraganaRecordsForUserAreEmpty(user);
 
-        return null;
+        List<HiraganaRecordEntity> records = getRecordsInLearningScope(user, flashcardQuantity);
+
+        return createFlashcards(records);
     }
 
-    @Override
-    public Object getFlashcard(JLPTLevel level) {
-        UserEntity user = userService.findByLogin(SecurityUtils.getCurrentLoggedUserLogin())
-                .orElseThrow(() -> new EntityNotFoundException("User not found!"));
-
-        checkForEmptyRecordsAndCreateRecords(user);
-
-        return getRandomWagedFlashard(user);
-    }
-
-    private void checkForEmptyRecordsAndCreateRecords(UserEntity user){
-        if(hiraganaRecordRepository.findFirstByUser(user).isPresent()){
+    private void createRecordsIfHiraganaRecordsForUserAreEmpty(UserEntity user){
+        if(!hiraganaRecordRepository.findFirstByUser(user).isPresent()){
             saveEmptyRecords(user);
         }
-    }
-
-    private HiraganaRecordEntity getRandomWagedFlashard(UserEntity user){
-        double averageWeight = hiraganaRecordRepository.averageWeightByUser(user);
-        BigDecimal weightDown = new BigDecimal(averageWeight - 2);
-        BigDecimal weightUp = new BigDecimal(averageWeight + 2);
-        return hiraganaRecordRepository.
-                findAnyByUserAndWeightBetween(user, weightDown, weightUp)
-                .orElseThrow(() -> new EntityNotFoundException("Error occurred while fetching hiragana record"));
     }
 
     private void saveEmptyRecords(UserEntity user){
@@ -122,6 +91,28 @@ public class HiraganaRecordService implements RecordService{
         });
 
         hiraganaRecordRepository.save(recordEntities);
+    }
+
+    private List<HiraganaRecordEntity> getRecordsInLearningScope(UserEntity user, int flashcardQuantity){
+        double averageWeight = hiraganaRecordRepository.averageWeightByUser(user);
+        BigDecimal weightDown = new BigDecimal(averageWeight - 0.2);
+        BigDecimal weightUp = new BigDecimal(averageWeight + 0.2);
+
+        Pageable pageable = new PageRequest(0, flashcardQuantity);
+        return hiraganaRecordRepository.findByUserAndWeightBetween(user, weightDown, weightUp, pageable);
+    }
+
+    private List<KanaFlashcardDTO> createFlashcards(List<HiraganaRecordEntity> records){
+        List<KanaFlashcardDTO> kanaFlashcards = Lists.newArrayList();
+
+        records.forEach(record -> {
+            KanaFlashcardDTO kanaFlashcard = new KanaFlashcardDTO();
+            kanaFlashcard.setCorrect(hiraganaConverter.convertToDTO(record.getHiragana()));
+            kanaFlashcard.setOther(hiraganaService.getOther5Entities(record.getHiragana().getId()).stream().map(hiraganaConverter::convertToDTO).collect(Collectors.toList()));
+            kanaFlashcards.add(kanaFlashcard);
+        });
+
+        return kanaFlashcards;
     }
 
     @Override
