@@ -11,4 +11,6 @@ public interface UserService extends ServiceInterface<UserEntity, UserDTO, Long>
     UserDTO save(UserDTO dto);
 
     Optional<UserEntity> findByLogin(String login);
+
+    void changePassword(String password);
 }

@@ -2,6 +2,7 @@ package pl.olszak.japanesehelper.japanesehelper.service.record.impl;
 
 import com.google.common.collect.Lists;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
@@ -30,6 +31,7 @@ import java.util.stream.Collectors;
 public class HiraganaRecordService implements RecordService<KanaFlashcardDTO>{
 
     private HiraganaService hiraganaService;
+    @Qualifier("hiraganaRecord")
     private HiraganaRecordRepository hiraganaRecordRepository;
     private HiraganaConverter hiraganaConverter;
     private UserService userService;

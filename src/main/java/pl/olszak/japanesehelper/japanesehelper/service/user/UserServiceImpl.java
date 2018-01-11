@@ -9,6 +9,7 @@ import pl.olszak.japanesehelper.japanesehelper.domain.Authorities;
 import pl.olszak.japanesehelper.japanesehelper.domain.user.UserEntity;
 import pl.olszak.japanesehelper.japanesehelper.dto.UserDTO;
 import pl.olszak.japanesehelper.japanesehelper.repository.user.UserRepository;
+import pl.olszak.japanesehelper.japanesehelper.security.SecurityUtils;
 import pl.olszak.japanesehelper.japanesehelper.service.AbstractService;
 
 import java.util.List;
@@ -51,8 +52,11 @@ public class UserServiceImpl extends AbstractService<UserEntity, UserDTO, Long> 
         return userRepository.findOneByLogin(login);
     }
 
-    //TODO refactor of saving user - hiding password
-
-    //TODO changePassword
-
+    @Override
+    public void changePassword(String password) {
+        userRepository.findOneByLogin(SecurityUtils.getCurrentLoggedUserLogin()).ifPresent(user -> {
+            String encryptedPassword = passwordEncoder.encode(password);
+            user.setPassword(encryptedPassword);
+        });
+    }
 }

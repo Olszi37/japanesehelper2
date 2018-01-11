@@ -1,6 +1,7 @@
 package pl.olszak.japanesehelper.japanesehelper.domain.hiragana;
 
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import pl.olszak.japanesehelper.japanesehelper.domain.record.RecordEntity;
 
 import javax.persistence.*;
@@ -8,6 +9,7 @@ import javax.persistence.*;
 @Data
 @Entity
 @Table(name = "hiragana_records")
+@EqualsAndHashCode(callSuper = true)
 public class HiraganaRecordEntity extends RecordEntity{
 
     @Id

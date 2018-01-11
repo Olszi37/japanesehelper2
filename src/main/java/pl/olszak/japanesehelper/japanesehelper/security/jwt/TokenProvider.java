@@ -34,8 +34,6 @@ public class TokenProvider {
         long now = (new Date()).getTime();
         Date validity=  new Date(now + 1000 * tokenValidityInSeconds);
 
-        log.debug("DZIALA");
-
         return Jwts.builder()
                 .setSubject(authentication.getName())
                 .claim(AUTHORITIES_KEY, authorities)

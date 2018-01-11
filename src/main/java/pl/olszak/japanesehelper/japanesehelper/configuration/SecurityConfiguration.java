@@ -4,18 +4,17 @@ import org.springframework.beans.factory.BeanInitializationException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.context.annotation.PropertySource;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
-import org.springframework.web.filter.CorsFilter;
 import pl.olszak.japanesehelper.japanesehelper.security.jwt.JWTConfigurer;
 import pl.olszak.japanesehelper.japanesehelper.security.jwt.TokenProvider;
 
@@ -32,15 +31,12 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter{
 
     private TokenProvider tokenProvider;
 
-    private CorsFilter corsFilter;
-
     @Autowired
     public SecurityConfiguration(AuthenticationManagerBuilder authenticationManagerBuilder, UserDetailsService userDetailsService,
-                                 TokenProvider tokenProvider, CorsFilter corsFilter){
+                                 TokenProvider tokenProvider){
         this.authenticationManagerBuilder = authenticationManagerBuilder;
         this.userDetailsService = userDetailsService;
         this.tokenProvider = tokenProvider;
-        this.corsFilter = corsFilter;
     }
 
     @PostConstruct
@@ -60,10 +56,17 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter{
     }
 
     @Override
+    public void configure(WebSecurity web) throws Exception {
+        web.ignoring().antMatchers(HttpMethod.OPTIONS, "/**");
+    }
+
+    @Override
     protected void configure(HttpSecurity http) throws Exception {
-        http
-            .addFilterBefore(corsFilter, UsernamePasswordAuthenticationFilter.class)
-            .exceptionHandling()
+        http.csrf()
+            .disable()
+            .authorizeRequests()
+            .anyRequest()
+            .authenticated()
         .and()
             .csrf()
             .disable()

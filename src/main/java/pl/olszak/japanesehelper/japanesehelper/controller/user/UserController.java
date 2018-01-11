@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.*;
 import pl.olszak.japanesehelper.japanesehelper.dto.UserDTO;
 import pl.olszak.japanesehelper.japanesehelper.service.user.UserService;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 import java.util.Optional;
 
@@ -49,5 +50,11 @@ public class UserController {
             return ResponseEntity.ok(user.get());
         }
         return ResponseEntity.notFound().build();
+    }
+
+    @GetMapping("/authenticate")
+    public String isAuthenticated(HttpServletRequest request) {
+        log.debug("REST request to check if the current user is authenticated");
+        return request.getRemoteUser();
     }
 }

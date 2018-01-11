@@ -41,6 +41,11 @@ public class AbstractService<ENTITY extends EntityInterface, DTO extends Abstrac
         return entity.map(converter::convertToDTO);
     }
 
+    @Transactional(readOnly = true)
+    public ENTITY findOneEntity(ID id){
+        return repository.findOne(id);
+    }
+
     public DTO save(ENTITY entity){
         ENTITY saved = repository.save(entity);
         return converter.convertToDTO(saved);
@@ -48,9 +53,5 @@ public class AbstractService<ENTITY extends EntityInterface, DTO extends Abstrac
 
     public void delete(ENTITY entity){
         repository.delete(entity);
-    }
-
-    public ENTITY findOneEntity(ID id){
-        return repository.getOne(id);
     }
 }

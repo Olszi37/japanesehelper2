@@ -1,6 +1,7 @@
 package pl.olszak.japanesehelper.japanesehelper.service.record.impl;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import pl.olszak.japanesehelper.japanesehelper.domain.enumerated.JLPTLevel;
@@ -23,6 +24,7 @@ import java.util.Optional;
 public class KanjiRecordService implements RecordService<KanjiFlashcardDTO>{
 
     private KanjiService kanjiService;
+    @Qualifier("kanjiRecord")
     private KanjiRecordRepository kanjiRecordRepository;
     private UserService userService;
 
