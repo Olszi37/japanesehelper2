@@ -3,8 +3,6 @@ package pl.olszak.japanesehelper.japanesehelper.service.record.impl;
 import com.google.common.collect.Lists;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import pl.olszak.japanesehelper.japanesehelper.converter.hiragana.HiraganaConverter;
@@ -22,9 +20,10 @@ import pl.olszak.japanesehelper.japanesehelper.service.record.RecordService;
 import pl.olszak.japanesehelper.japanesehelper.service.user.UserService;
 
 import javax.persistence.EntityNotFoundException;
-import java.math.BigDecimal;
 import java.util.List;
 import java.util.stream.Collectors;
+
+import static pl.olszak.japanesehelper.japanesehelper.domain.enumerated.MasteryLevel.*;
 
 @Service
 @Transactional
@@ -95,13 +94,23 @@ public class HiraganaRecordService implements RecordService<KanaFlashcardDTO>{
         hiraganaRecordRepository.save(recordEntities);
     }
 
-    private List<HiraganaRecordEntity> getRecordsInLearningScope(UserEntity user, int flashcardQuantity){
-        double averageWeight = hiraganaRecordRepository.averageWeightByUser(user);
-        BigDecimal weightDown = new BigDecimal(averageWeight - 0.2);
-        BigDecimal weightUp = new BigDecimal(averageWeight + 0.2);
+//    private List<HiraganaRecordEntity> getRecordsInLearningScope(UserEntity user, int flashcardQuantity){
+//        double averageWeight = hiraganaRecordRepository.averageWeightByUser(user);
+//        BigDecimal weightDown = new BigDecimal(averageWeight - 0.2);
+//        BigDecimal weightUp = new BigDecimal(averageWeight + 0.2);
+//
+//        Pageable pageable = new PageRequest(0, flashcardQuantity);
+//        return hiraganaRecordRepository.findByUserAndWeightBetween(user, weightDown, weightUp, pageable);
+//    }
 
-        Pageable pageable = new PageRequest(0, flashcardQuantity);
-        return hiraganaRecordRepository.findByUserAndWeightBetween(user, weightDown, weightUp, pageable);
+    private List<HiraganaRecordEntity> getRecordsInLearningScope(UserEntity user, int flashcardQuantity){
+        List<HiraganaRecordEntity> unknown = hiraganaRecordRepository.findByUserAndWieghtBetween2(user, UKNOWN);
+        List<HiraganaRecordEntity> weak = hiraganaRecordRepository.findByUserAndWieghtBetween2(user, WEAK);
+        List<HiraganaRecordEntity> intermediate = hiraganaRecordRepository.findByUserAndWieghtBetween2(user, INTERMEDIATE);
+        List<HiraganaRecordEntity> wellKnown = hiraganaRecordRepository.findByUserAndWieghtBetween2(user, WELL_KNOWN);
+        List<HiraganaRecordEntity> mastered = hiraganaRecordRepository.findByUserAndWieghtBetween2(user, MASTERED);
+
+        return null;
     }
 
     private List<KanaFlashcardDTO> createFlashcards(List<HiraganaRecordEntity> records){
