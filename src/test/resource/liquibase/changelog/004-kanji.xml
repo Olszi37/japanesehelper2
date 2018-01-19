@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.5.xsd
+                        http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd">
+
+    <property name="now" value="now()" dbms="postgresql"/>
+
+    <changeSet id="004-kanji" author="olszakm">
+        <createTable tableName="kanji">
+            <column name="id" type="bigint">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="sign" type="varchar(255)">
+                <constraints nullable="false"/>
+            </column>
+
+            <column name="onyomi" type="varchar(255)">
+                <constraints nullable="true"/>
+            </column>
+
+            <column name="kunyomi" type="varchar(255)">
+                <constraints nullable="true"/>
+            </column>
+
+            <column name="meanings" type="varchar(255)">
+                <constraints nullable="false"/>
+            </column>
+
+            <column name="level" type="varchar(2)">
+                <constraints nullable="true"/>
+            </column>
+        </createTable>
+
+        <createIndex tableName="kanji" indexName="idx_sign_kanji">
+            <column name="sign" type="varchar(255)"/>
+        </createIndex>
+
+        <createIndex tableName="kanji" indexName="idx_onyomi_kanji">
+            <column name="onyomi" type="varchar(255)"/>
+        </createIndex>
+
+        <createIndex tableName="kanji" indexName="idx_kunyomi_kanji">
+            <column name="kunyomi" type="varchar(255)"/>
+        </createIndex>
+
+        <createIndex tableName="kanji" indexName="idx_level_kanji">
+            <column name="level" type="varchar(2)"/>
+        </createIndex>
+
+        <loadData encoding="UTF-8"
+                  file="liquibase/schema/kanji.csv"
+                  separator=";"
+                  tableName="kanji">
+        </loadData>
+
+    </changeSet>
+
+</databaseChangeLog>

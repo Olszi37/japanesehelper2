@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.5.xsd
+                        http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd">
+
+    <property name="now" value="now()" dbms="postgresql"/>
+    <property name="autoIncrement" value="true"/>
+
+    <changeSet id="001-users" author="olszakm">
+        <createTable tableName="users">
+            <column name="id" type="bigint">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="login" type="varchar(100)">
+                <constraints unique="true" nullable="false"/>
+            </column>
+            <column name="password" type="varchar(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="email" type="varchar(255)">
+                <constraints unique="true" nullable="false"/>
+            </column>
+            <column name="authority" type="varchar(255)">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+
+        <createIndex tableName="users" indexName="idx_user_login">
+            <column name="login" type="varchar(255)"/>
+        </createIndex>
+
+        <createIndex tableName="users" indexName="idx_user_email">
+            <column name="email" type="varchar(255)"/>
+        </createIndex>
+
+        <createSequence sequenceName="users_seq" incrementBy="1" startValue="10"/>
+
+        <loadData encoding="UTF-8"
+                  file="liquibase/schema/users.csv"
+                  separator=";"
+                  tableName="users">
+        </loadData>
+
+    </changeSet>
+
+</databaseChangeLog>

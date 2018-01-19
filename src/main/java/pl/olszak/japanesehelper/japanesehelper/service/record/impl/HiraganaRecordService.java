@@ -23,8 +23,6 @@ import javax.persistence.EntityNotFoundException;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import static pl.olszak.japanesehelper.japanesehelper.domain.enumerated.MasteryLevel.*;
-
 @Service
 @Transactional
 public class HiraganaRecordService implements RecordService<KanaFlashcardDTO>{
@@ -104,11 +102,11 @@ public class HiraganaRecordService implements RecordService<KanaFlashcardDTO>{
 //    }
 
     private List<HiraganaRecordEntity> getRecordsInLearningScope(UserEntity user, int flashcardQuantity){
-        List<HiraganaRecordEntity> unknown = hiraganaRecordRepository.findByUserAndWieghtBetween2(user, UKNOWN);
-        List<HiraganaRecordEntity> weak = hiraganaRecordRepository.findByUserAndWieghtBetween2(user, WEAK);
-        List<HiraganaRecordEntity> intermediate = hiraganaRecordRepository.findByUserAndWieghtBetween2(user, INTERMEDIATE);
-        List<HiraganaRecordEntity> wellKnown = hiraganaRecordRepository.findByUserAndWieghtBetween2(user, WELL_KNOWN);
-        List<HiraganaRecordEntity> mastered = hiraganaRecordRepository.findByUserAndWieghtBetween2(user, MASTERED);
+//        List<HiraganaRecordEntity> unknown = hiraganaRecordRepository.findByUserAndWieghtBetween2(user, UKNOWN);
+//        List<HiraganaRecordEntity> weak = hiraganaRecordRepository.findByUserAndWieghtBetween2(user, WEAK);
+//        List<HiraganaRecordEntity> intermediate = hiraganaRecordRepository.findByUserAndWieghtBetween2(user, INTERMEDIATE);
+//        List<HiraganaRecordEntity> wellKnown = hiraganaRecordRepository.findByUserAndWieghtBetween2(user, WELL_KNOWN);
+//        List<HiraganaRecordEntity> mastered = hiraganaRecordRepository.findByUserAndWieghtBetween2(user, MASTERED);
 
         return null;
     }

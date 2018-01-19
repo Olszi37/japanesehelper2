@@ -5,7 +5,6 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
-import pl.olszak.japanesehelper.japanesehelper.domain.enumerated.MasteryLevel;
 import pl.olszak.japanesehelper.japanesehelper.domain.hiragana.HiraganaRecordEntity;
 import pl.olszak.japanesehelper.japanesehelper.domain.user.UserEntity;
 
@@ -23,8 +22,8 @@ public interface HiraganaRecordRepository extends JpaRepository<HiraganaRecordEn
 
     List<HiraganaRecordEntity> findByUserAndWeightBetween(UserEntity userEntity, BigDecimal min, BigDecimal max, Pageable pageable);
 
-    @Query("SELECT h FROM HiraganaRecordEntity WHERE h.user = :user AND h.weight " +
-            "BETWEEN(mastery.lowBorder, mastery.topBorder)")
-    List<HiraganaRecordEntity> findByUserAndWieghtBetween2(@Param("user") UserEntity userEntity,
-                                                           @Param("mastery") MasteryLevel mastery);
+//    @Query("SELECT h FROM HiraganaRecordEntity h WHERE h.user = :user AND h.weight " +
+//            "BETWEEN :mastery.lowBorder AND :mastery.topBorder")
+//    List<HiraganaRecordEntity> findByUserAndWieghtBetween2(@Param("user") UserEntity userEntity,
+//                                                           @Param("mastery") MasteryLevel mastery);
 }

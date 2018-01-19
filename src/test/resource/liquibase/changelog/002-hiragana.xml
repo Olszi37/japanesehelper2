@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.5.xsd
+                        http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd">
+
+    <property name="now" value="now()" dbms="postgresql"/>
+
+    <changeSet id="002-hiragana" author="olszakm">
+        <createTable tableName="hiragana">
+            <column name="id" type="bigint">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="sign" type="varchar(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="reading" type="varchar(50)">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+
+        <createIndex tableName="hiragana" indexName="idx_sign_hiragana">
+            <column name="sign" type="varchar(255)"/>
+        </createIndex>
+
+        <loadData encoding="UTF-8"
+                  file="liquibase/schema/hiragana.csv"
+                  separator=";"
+                  tableName="hiragana">
+        </loadData>
+
+    </changeSet>
+
+</databaseChangeLog>

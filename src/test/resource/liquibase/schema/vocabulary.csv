@@ -1,0 +1,670 @@
+id;word;furigana;meaning;level
+1;会う;あう;to meet;N5
+2;青;あお;blue;N5
+3;青い;あおい;blue;N5
+4;赤;あか;red;N5
+5;赤い;あかい;red;N5
+6;明い;あかるい;bright;N5
+7;秋;あき;autumn;N5
+8;開く;あく;to open, to become open;N5
+9;開ける;あける;to open;N5
+10;上げる;あげる;to give;N5
+11;朝;あさ;morning;N5
+12;朝御飯;あさごはん;breakfast;N5
+13;あさって;;day after tomorrow;N5
+14;足;あし;foot, leg;N5
+15;明日;あした;tomorrow;N5
+16;あそこ;;over there;N5
+17;遊ぶ;あそぶ;to play, to make a visit;N5
+18;暖かい;あたたかい;warm;N5
+19;頭;あたま;head;N5
+20;新しい;あたらしい;new;N5
+21;あちら;;there;N5
+22;暑い;あつい;hot;N5
+23;熱い;あつい;hot to the touch;N5
+24;厚い;あつい;kind, deep, thick;N5
+25;あっち;;over there;N5
+26;後;あと;afterwards;N5
+27;あなた;;you;N5
+28;兄;あに;(humble) older brother;N5
+29;姉;あね;(humble) older sister;N5
+30;あの;;that over there;N5
+31;あの;;um...;N5
+32;アパート;;apartment;N5
+33;あびる;;to bathe, to shower;N5
+34;危ない;あぶない;dangerous;N5
+35;甘い;あまい;sweet;N5
+36;あまり;;not very;N5
+37;雨;あめ;rain;N5
+38;飴;あめ;candy;N5
+39;洗う;あらう;to wash;N5
+40;ある;;to be,to have (used for inanimate objects);N5
+41;歩く;あるく;to walk;N5
+42;あれ;;that;N5
+43;いい/よい;;good;N5
+44;いいえ;;no;N5
+45;言う;いう;to say;N5
+46;家;いえ;house;N5
+47;いかが;;how;N5
+48;行く;いく;to go;N5
+49;いくつ;;how many?,how old?;N5
+50;いくら;;how much?;N5
+51;池;いけ;pond;N5
+52;医者;いしゃ;medical doctor;N5
+53;椅子;いす;chair;N5
+54;忙しい;いそがしい;busy, irritated;N5
+55;痛い;いたい;painful;N5
+56;一;いち;one;N5
+57;一日;いちにち;first of the month;N5
+58;一番;いちばん;best, first;N5
+59;いつ;;when;N5
+60;五日;いつか;five days, fifth day;N5
+61;一緒;いっしょ;together;N5
+62;五つ;いつつ;five;N5
+63;いつも;;always;N5
+64;犬;いぬ;dog;N5
+65;今;いま;now;N5
+66;意味;いみ;meaning;N5
+67;妹;いもうと;(humble) younger sister;N5
+68;嫌;いや;unpleasant;N5
+69;入口;いりぐち;entrance;N5
+70;居る;いる;to be, to have (used for people and animals);N5
+71;要る;いる;to need;N5
+72;入れる;いれる;to put in;N5
+73;色;いろ;colour;N5
+74;いろいろ;;various;N5
+75;上;うえ;on top of;N5
+76;後ろ;うしろ;behind;N5
+77;薄い;うすい;thin,weak;N5
+78;歌;うた;song;N5
+79;歌う;うたう;to sing;N5
+80;生まれる;うまれる;to be born;N5
+81;海;うみ;sea;N5
+82;売る;うる;to sell;N5
+83;煩い;うるさい;noisy, annoying;N5
+84;上着;うわぎ;jacket;N5
+85;絵;え;picture;N5
+86;映画;えいが;movie;N5
+87;映画館;えいがかん;cinema;N5
+88;英語;えいご;English language;N5
+89;ええ;;yes;N5
+90;駅;えき;station;N5
+91;エレベーター;;elevator;N5
+92;鉛筆;えんぴつ;pencil;N5
+93;おいしい;;delicious;N5
+94;多い;おおい;many;N5
+95;大きい;おおきい;big;N5
+96;大きな;おおきな;big;N5
+97;大勢;おおぜい;great number of people;N5
+98;お母さん;おかあさん;(honorable) mother;N5
+99;お菓子;おかし;sweets, candy;N5
+100;お金;おかね;money;N5
+101;起きる;おきる;to get up;N5
+102;置く;おく;to put;N5
+103;奥さん;おくさん;(honorable) wife;N5
+104;お酒;おさけ;alcohol, rice wine;N5
+105;お皿;おさら;plate, dish;N5
+106;伯父/叔父;おじいさん;grandfather, male senior citizen;N5
+107;教える;おしえる;to teach, to tell;N5
+108;伯父/叔父;おじさん;uncle, middle aged gentleman;N5
+109;押す;おす;to push, to stamp something;N5
+110;遅い;おそい;late, slow;N5
+111;お茶;おちゃ;green tea;N5
+112;お手洗い;おてあらい;bathroom;N5
+113;お父さん;おとうさん;(honorable) father;N5
+114;弟;おとうと;younger brother;N5
+115;男;おとこ;Man;N5
+116;男の子;おとこのこ;Boy;N5
+117;一昨日;おととい;day before yesterday;N5
+118;一昨年;おととし;year before last;N5
+119;大人;おとな;Adult;N5
+120;御腹;おなか;stomach;N5
+121;同じ;おなじ;same;N5
+122;お兄さん;おにいさん;(honorable) older brother;N5
+123;お姉さん;おねえさん;(honorable) older sister;N5
+124;叔母さん;おばあさん;grandmother, female senior-citizen;N5
+125;伯母さん/叔母さん;おばさん;Aunt;N5
+126;お風呂;おふろ;Bath;N5
+127;お弁当;おべんとう;boxed lunch;N5
+128;覚える;おぼえる;to remember;N5
+129;お巡りさん;おまわりさん;friendly term for policeman;N5
+130;重い;おもい;Heavy;N5
+131;面白い;おもしろい;Interesting;N5
+132;泳ぐ;およぐ;to swim;N5
+133;降りる;おりる;to get off, to descend;N5
+134;終る;おわる;to finish;N5
+135;音楽;おんがく;Music;N5
+136;女;おんな;Woman;N5
+137;女の子;おんなのこ;Girl;N5
+138;外国;がいこく;foreign country;N5
+139;外国人;がいこくじん;Foreigner;N5
+140;会社;かいしゃ;Company;N5
+141;階段;かいだん;Stairs;N5
+142;買い物;かいもの;Shopping;N5
+143;買う;かう;to buy;N5
+144;返す;かえす;to return something;N5
+145;帰る;かえる;to go back;N5
+146;掛かる;かかる;to take time or money;N5
+147;鍵;かぎ;Key;N5
+148;書く;かく;to write;N5
+149;学生;がくせい;Student;N5
+150;掛ける;かける;to call by phone;N5
+151;傘;かさ;Umbrella;N5
+152;貸す;かす;to lend;N5
+153;風;かぜ;Wind;N5
+154;風邪;かぜ;a cold;N5
+155;家族;かぞく;Family;N5
+156;方;かた;person, way of doing;N5
+157;学校;がっこう;School;N5
+158;カップ;;Cup;N5
+159;家庭;かてい;Household;N5
+160;角;かど;a corner;N5
+161;かばん;;bag, basket;N5
+162;花瓶;かびん;a vase;N5
+163;紙;かみ;paper;N5
+164;カメラ;;camera;N5
+165;火曜日;かようび;Tuesday;N5
+166;辛い;からい;Spicy;N5
+167;体;からだ;Body;N5
+168;借りる;かりる;to borrow;N5
+169;軽い;かるい;Light;N5
+170;カレー;;Curry;N5
+171;カレンダー;;calendar;N5
+172;川;かわ;River;N5
+173;かわいい;;Cute;N5
+174;漢字;かんじ;Chinese character;N5
+175;木;き;tree, wood;N5
+176;黄色;きいろ;yellow;N5
+177;黄色い;きいろい;yellow;N5
+178;消える;きえる;to disappear;N5
+179;聞く;きく;to hear, to listen to, to ask;N5
+180;北;きた;North;N5
+181;ギター;;Guitar;N5
+182;汚い;きたない;Dirty;N5
+183;喫茶店;きっさてん;coffee lounge;N5
+184;切手;きって;postage stamp;N5
+185;切符;きっぷ;Ticket;N5
+186;昨日;きのう;Yesterday;N5
+187;九;きゅう / く;Nine;N5
+188;牛肉;ぎゅうにく;Beef;N5
+189;牛乳;ぎゅうにゅう;Milk;N5
+190;今日;きょう;Today;N5
+191;教室;きょうしつ;Classroom;N5
+192;兄弟;きょうだい;(humble) siblings;N5
+193;去年;きょねん;last year;N5
+194;嫌い;きらい;Hate;N5
+195;切る;きる;to cut;N5
+196;着る;きる;to put on from the shoulders down;N5
+197;きれい;;pretty, clean;N5
+198;キロ/キログラム;;Kilogram;N5
+199;キロ/キロメートル;;Kilometer;N5
+200;銀行;ぎんこう;Bank;N5
+201;金曜日;きんようび;Friday;N5
+202;薬;くすり;medicine;N5
+203;下さい;ください;Please;N5
+204;果物;くだもの;Fruit;N5
+205;口;くち;mouth, opening;N5
+206;靴;くつ;Shoes;N5
+207;靴下;くつした;Socks;N5
+208;国;くに;Country;N5
+209;曇り;くもり;cloudy weather;N5
+210;曇る;くもる;to become cloudy, to become dim;N5
+211;暗い;くらい;Gloomy;N5
+212;クラス;;Class;N5
+213;グラム;;Gram;N5
+214;来る;くる;to come;N5
+215;車;くるま;car, vehicle;N5
+216;黒;くろ;Black;N5
+217;黒い;くろい;black;N5
+218;警官;けいかん;policeman;N5
+219;今朝;けさ;this morning;N5
+220;消す;けす;to erase, to turn off power;N5
+221;結構;けっこう;splendid, enough;N5
+222;結婚;けっこん;Marriage;N5
+223;月曜日;げつようび;Monday;N5
+224;玄関;げんかん;entry hall;N5
+225;元気;げんき;health, vitality;N5
+226;五;ご;Five;N5
+227;公園;こうえん;Park;N5
+228;交差点;こうさてん;intersection;N5
+229;紅茶;こうちゃ;black tea;N5
+230;交番;こうばん;police box;N5
+231;声;こえ;Voice;N5
+232;コート;;coat, tennis court;N5
+233;コーヒー;;Coffee;N5
+234;ここ;;Here;N5
+235;午後;ごご;afternoon;N5
+236;九日;ここのか;nine days, ninth day;N5
+237;九つ;ここのつ;Nine;N5
+238;午前;ごぜん;morning;N5
+239;答える;こたえる;to answer;N5
+240;こちら;;this person or way;N5
+241;こっち;;this person or way;N5
+242;コップ;;a glass;N5
+243;今年;ことし;this year;N5
+244;言葉;ことば;word, language;N5
+245;子供;こども;Child;N5
+246;この;;This;N5
+247;御飯;ごはん;cooked rice, meal;N5
+248;コピーする;;to copy;N5
+249;困る;こまる;to be worried;N5
+250;これ;;This;N5
+251;今月;こんげつ;this month;N5
+252;今週;こんしゅう;this week;N5
+253;こんな;;Such;N5
+254;今晩;こんばん;this evening;N5
+255;さあ;;well…;N5
+256;財布;さいふ;Wallet;N5
+257;魚;さかな;Fish;N5
+258;先;さき;the future, previous;N5
+259;咲く;さく;to bloom;N5
+260;作文;さくぶん;composition, writing;N5
+261;差す;さす;to stretch out hands, to raise an umbrella;N5
+262;雑誌;ざっし;Magazine;N5
+263;砂糖;さとう;Sugar;N5
+264;寒い;さむい;Cold;N5
+265;さ来年;さらいねん;year after next;N5
+266;三;さん;Three;N5
+267;散歩;さんぽする;to stroll;N5
+268;四;し / よん;Four;N5
+269;塩;しお;Salt;N5
+270;しかし;;However;N5
+271;時間;じかん;Time;N5
+272;仕事;しごと;Job;N5
+273;辞書;じしょ;Dictionary;N5
+274;静か;しずか;Quiet;N5
+275;下;した;Below;N5
+276;七;しち / なな;Seven;N5
+277;質問;しつもん;Question;N5
+278;自転車;じてんしゃ;Bicycle;N5
+279;自動車;じどうしゃ;Automobile;N5
+280;死ぬ;しぬ;to die;N5
+281;字引;じびき;Dictionary;N5
+282;自分;じぶん;Oneself;N5
+283;閉まる;しまる;to close, to be closed;N5
+284;閉める;しめる;to close something;N5
+285;締める;しめる;to tie;N5
+286;じゃ/じゃあ;;well then…;N5
+287;写真;しゃしん;photograph;N5
+288;シャツ;;Shirt;N5
+289;シャワー;;Shower;N5
+290;十;じゅう とお;Ten;N5
+291;授業;じゅぎょう;lesson, class work;N5
+292;宿題;しゅくだい;homework;N5
+293;上手;じょうず;Skillful;N5
+294;丈夫;じょうぶ;strong, durable;N5
+295;しょうゆ;;soy sauce;N5
+296;食堂;しょくどう;dining hall;N5
+297;知る;しる;to know;N5
+298;白;しろ;White;N5
+299;白い;しろい;White;N5
+300;新聞;しんぶん;newspaper;N5
+301;水曜日;すいようび;Wednesday;N5
+302;吸う;すう;to smoke, to suck;N5
+303;スカート;;Skirt;N5
+304;好き;すき;Likeable;N5
+305;少ない;すくない;a few;N5
+306;すぐに;;Instantly;N5
+307;少し;すこし;Few;N5
+308;涼しい;すずしい;Refreshing;N5
+309;ストーブ;;Heater;N5
+310;スプーン;;Spoon;N5
+311;スポーツ;;Sport;N5
+312;ズボン;;Trousers;N5
+313;住む;すむ;to live in;N5
+314;スリッパ;;Slippers;N5
+315;する;;to do;N5
+316;座る;すわる;to sit;N5
+317;背;せ;height, stature;N5
+318;生徒;せいと;Pupil;N5
+319;セーター;;sweater, jumper;N5
+320;節倹;せっけん;Economy;N5
+321;背広;せびろ;business suit;N5
+322;狭い;せまい;Narrow;N5
+323;ゼロ;;Zero;N5
+324;千;せん;Thousand;N5
+325;先月;せんげつ;last month;N5
+326;先週;せんしゅう;last week;N5
+327;先生;せんせい;teacher, doctor;N5
+328;洗濯;せんたく;Washing;N5
+329;全部;ぜんぶ;All;N5
+330;掃除;そうじする;to clean, to sweep;N5
+331;そうして/そして;;And;N5
+332;そこ;;that place;N5
+333;そちら;;over there;N5
+334;そっち;;over there;N5
+335;外;そと;Outside;N5
+336;その;;That;N5
+337;そば;;near, beside;N5
+338;空;そら;Sky;N5
+339;それ;;that;N5
+340;それから;;after that;N5
+341;それでは;;in that situation;N5
+342;大学;だいがく;university;N5
+343;大使館;たいしかん;embassy;N5
+344;大丈夫;だいじょうぶ;all right;N5
+345;大好き;だいすき;to be very likeable;N5
+346;大切;たいせつ;important;N5
+347;台所;だいどころ;kitchen;N5
+348;大変;たいへん;very;N5
+349;大変;たいへん;difficult situation;N5
+350;高い;たかい;tall, expensive;N5
+351;たくさん;;many;N5
+352;タクシー;;taxi;N5
+353;出す;だす;to put out;N5
+354;立つ;たつ;to stand;N5
+355;たて;;length,height;N5
+356;建物;たてもの;building;N5
+357;楽しい;たのしい;enjoyable;N5
+358;頼む;たのむ;to ask;N5
+359;たばこ;;tobacco,cigarettes;N5
+360;多分;たぶん;probably;N5
+361;食べ物;たべもの;food;N5
+362;食べる;たべる;to eat;N5
+363;卵;たまご;egg;N5
+364;誰;だれ;who;N5
+365;誰;だれか;somebody;N5
+366;誕生日;たんじょうび;birthday;N5
+367;だんだん;;gradually;N5
+368;小さい;ちいさい;little;N5
+369;小さな;ちいさな;little;N5
+370;近い;ちかい;near;N5
+371;違う;ちがう;to differ;N5
+372;近く;ちかく;near;N5
+373;地下鉄;ちかてつ;underground train;N5
+374;地図;ちず;map;N5
+375;茶色;ちゃいろ;brown;N5
+376;ちゃわん;;rice bowl;N5
+377;ちょうど;;exactly;N5
+378;ちょっと;;somewhat;N5
+379;一日;ついたち;first of month;N5
+380;使う;つかう;to use;N5
+381;疲れる;つかれる;to get tired;N5
+382;次;つぎ;next;N5
+383;着く;つく;to arrive at;N5
+384;机;つくえ;desk;N5
+385;作る;つくる;to make;N5
+386;つける;;to turn on;N5
+387;勤める;つとめる;to work for someone;N5
+388;つまらない;;boring;N5
+389;冷たい;つめたい;cold to the touch;N5
+390;強い;つよい;powerful;N5
+391;手;て;hand;N5
+392;テープ;;tape;N5
+393;テーブル;;table;N5
+394;テープレコーダー;;tape recorder;N5
+395;出かける;でかける;to go out;N5
+396;手紙;てがみ;letter;N5
+397;できる;;to be able to;N5
+398;出口;でぐち;exit;N5
+399;テスト;;test;N5
+400;では;;with that...;N5
+401;デパート;;department store;N5
+402;でも;;but;N5
+403;出る;でる;to appear,to leave;N5
+404;テレビ;;television;N5
+405;天気;てんき;weather;N5
+406;電気;でんき;electricity,electric light;N5
+407;電車;でんしゃ;electric train;N5
+408;電話;でんわ;telephone;N5
+409;戸;と;Japanese style door;N5
+410;ドア;;Western style door;N5
+411;トイレ;;toilet;N5
+412;どう;;how,in what way;N5
+413;どうして;;for what reason;N5
+414;どうぞ;;please;N5
+415;動物;どうぶつ;animal;N5
+416;どうも;;thanks;N5
+417;遠い;とおい;far;N5
+418;十日;とおか;ten days,the tenth day;N5
+419;時々;ときどき;sometimes;N5
+420;時計;とけい;watch,clock;N5
+421;どこ;;where;N5
+422;所;ところ;place;N5
+423;年;とし;year;N5
+424;図書館;としょかん;library;N5
+425;どちら;;which of two;N5
+426;どっち;;which;N5
+427;とても;;very;N5
+428;どなた;;who;N5
+429;隣;となり;next door to;N5
+430;どの;;which;N5
+431;飛ぶ;とぶ;to fly,to hop;N5
+432;止まる;とまる;to come to a halt;N5
+433;友達;ともだち;friend;N5
+434;土曜日;どようび;Saturday;N5
+435;鳥;とり;bird;N5
+436;とり肉;とりにく;chicken meat;N5
+437;取る;とる;to take something;N5
+438;撮る;とる;to take a photo or record a film;N5
+439;どれ;;which (of three or more);N5
+440;ナイフ;;knife;N5
+441;中;なか;middle;N5
+442;長い;ながい;long;N5
+443;鳴く;なく;animal noise. to chirp, roar or croak etc.;N5
+444;無くす;なくす;to lose something;N5
+445;なぜ;;why;N5
+446;夏;なつ;summer;N5
+447;夏休み;なつやすみ;summer holiday;N5
+448;など;;et cetera;N5
+449;七つ;ななつ;seven;N5
+450;七日;なのか;seven days,the seventh day;N5
+451;名前;なまえ;name;N5
+452;習う;ならう;to learn;N5
+453;並ぶ;ならぶ;to line up,to stand in a line;N5
+454;並べる;ならべる;to line up,to set up;N5
+455;ーになる;;to become;N5
+456;何;なん/なに;what;N5
+457;二;に;two;N5
+458;賑やか;にぎやか;bustling,busy;N5
+459;肉;にく;meat;N5
+460;西;にし;west;N5
+461;日曜日;にちようび;Sunday;N5
+462;荷物;にもつ;luggage;N5
+463;ニュース;;news;N5
+464;庭;にわ;garden;N5
+465;脱ぐ;ぬぐ;to take off clothes;N5
+466;温い;ぬるい;luke warm;N5
+467;ネクタイ;;tie,necktie;N5
+468;猫;ねこ;cat;N5
+469;寝る;ねる;to go to bed,to sleep;N5
+470;ノート;;notebook,exercise book;N5
+471;登る;のぼる;to climb;N5
+472;飲み物;のみもの;a drink;N5
+473;飲む;のむ;to drink;N5
+474;乗る;のる;to get on,to ride;N5
+475;歯;は;tooth;N5
+476;パーティー;;party;N5
+477;はい;;yes;N5
+478;灰皿;はいざら;ashtray;N5
+479;入る;はいる;to enter,to contain;N5
+480;葉書;はがき;postcard;N5
+481;履く;はく;to wear,to put on trousers;N5
+482;箱;はこ;box;N5
+483;橋;はし;bridge;N5
+484;箸;はし;chopsticks;N5
+485;始まる;はじまる;to begin;N5
+486;初め/始め;はじめ;beginning;N5
+487;初めて;はじめて;for the first time;N5
+488;走る;はしる;to run;N5
+489;バス;;bus;N5
+490;バター;;butter;N5
+491;二十歳;はたち;20 years old,20th year;N5
+492;働く;はたらく;to work;N5
+493;八;はち;eight;N5
+494;二十日;はつか;twenty days,twentieth;N5
+495;花;はな;flower;N5
+496;鼻;はな;nose;N5
+497;話;はなし;talk,story;N5
+498;話す;はなす;to speak;N5
+499;早い;はやい;early;N5
+500;速い;はやい;quick;N5
+501;春;はる;spring;N5
+502;貼る;はる;to stick;N5
+503;晴れ;はれ;clear weather;N5
+504;晴れる;はれる;to be sunny;N5
+505;半;はん;half;N5
+506;晩;ばん;evening;N5
+507;パン;;bread;N5
+508;ハンカチ;;handkerchief;N5
+509;番号;ばんごう;number;N5
+510;晩御飯;ばんごはん;evening meal;N5
+511;半分;はんぶん;half minute;N5
+512;東;ひがし;east;N5
+513;引く;ひく;to pull;N5
+514;弾く;ひく;to play an instrument with strings, including piano;N5
+515;低い;ひくい;short,low;N5
+516;飛行機;ひこうき;aeroplane;N5
+517;左;ひだり;left hand side;N5
+518;人;ひと;person;N5
+519;一つ;ひとつ;one;N5
+520;一月;ひとつき;one month;N5
+521;一人;ひとり;one person;N5
+522;暇;ひま;free time;N5
+523;百;ひゃく;hundred;N5
+524;病院;びょういん;hospital;N5
+525;病気;びょうき;illness;N5
+526;昼;ひる;noon, daytime;N5
+527;昼御飯;ひるごはん;midday meal;N5
+528;広い;ひろい;spacious,wide;N5
+529;フィルム;;roll of film;N5
+530;封筒;ふうとう;envelope;N5
+531;プール;;swimming pool;N5
+532;フォーク;;fork;N5
+533;吹く;ふく;to blow;N5
+534;服;ふく;clothes;N5
+535;二つ;ふたつ;two;N5
+536;豚肉;ぶたにく;pork;N5
+537;二人;ふたり;two people;N5
+538;二日;ふつか;two days, second day of the month;N5
+539;太い;ふとい;fat;N5
+540;冬;ふゆ;winter;N5
+541;降る;ふる;to fall, e.g. rain or snow;N5
+542;古い;ふるい;old (not used for people);N5
+543;お風呂;おふろ;bath;N5
+544;文章;ぶんしょう;sentence,text;N5
+545;ページ;;page;N5
+546;下手;へた;unskillful;N5
+547;ベッド;;bed;N5
+548;ペット;;pet;N5
+549;部屋;へや;room;N5
+550;辺;へん;area;N5
+551;ペン;;pen;N5
+552;勉強;べんきょうする;to study;N5
+553;便利;べんり;useful, convenient;N5
+554;帽子;ぼうし;hat;N5
+555;ボールペン;;ball-point pen;N5
+556;外;ほか;other, the rest;N5
+557;ポケット;;pocket;N5
+558;欲しい;ほしい;want;N5
+559;ポスト;;post;N5
+560;細い;ほそい;thin;N5
+561;ボタン;;button;N5
+562;ホテル;;hotel;N5
+563;本;ほん;book;N5
+564;本棚;ほんだな;bookshelves;N5
+565;本当;ほんとう;truth;N5
+566;毎朝;まいあさ;every morning;N5
+567;毎月;まいげつ/まいつき;every month;N5
+568;毎週;まいしゅう;every week;N5
+569;毎日;まいにち;every day;N5
+570;毎年;まいねん/まいとし;every year;N5
+571;毎晩;まいばん;every night;N5
+572;前;まえ;before;N5
+573;曲る;まがる;to turn,to bend;N5
+574;まずい;;unpleasant;N5
+575;また;;again,and;N5
+576;まだ;;yet,still;N5
+577;町;まち;town,city;N5
+578;待つ;まつ;to wait;N5
+579;まっすぐ;;straight ahead,direct;N5
+580;マッチ;;match;N5
+581;窓;まど;window;N5
+582;丸い/円い;まるい;round,circular;N5
+583;万;まん;ten thousand;N5
+584;万年筆;まんねんひつ;fountain pen;N5
+585;磨く;みがく;to brush teeth, to polish;N5
+586;右;みぎ;right side;N5
+587;短い;みじかい;short;N5
+588;水;みず;water;N5
+589;店;みせ;shop;N5
+590;見せる;みせる;to show;N5
+591;道;みち;street;N5
+592;三日;みっか;three days, third day of the month;N5
+593;三つ;みっつ;three;N5
+594;緑;みどり;green;N5
+595;皆さん;みなさん;everyone;N5
+596;南;みなみ;south;N5
+597;耳;みみ;ear;N5
+598;見る 観る;みる;to see, to watch;N5
+599;みんな;;everyone;N5
+600;六日;むいか;six days, sixth day of the month;N5
+601;向こう;むこう;over there;N5
+602;難しい;むずかしい;difficult;N5
+603;六つ;むっつ;six;N5
+604;村;むら;village;N5
+605;目;め;eye;N5
+606;メートル;;metre;N5
+607;眼鏡;めがね;glasses;N5
+608;もう;;already;N5
+609;もう一度;もういちど;again;N5
+610;木曜日;もくようび;Thursday;N5
+611;持つ;もつ;to hold;N5
+612;もっと;;more;N5
+613;物;もの;thing;N5
+614;門;もん;gate;N5
+615;問題;もんだい;problem;N5
+616;八百屋;やおや;greengrocer;N5
+617;野菜;やさい;vegetable;N5
+618;易しい;やさしい;easy, simple;N5
+619;安い;やすい;cheap;N5
+620;休み;やすみ;rest,holiday;N5
+621;休む;やすむ;to rest;N5
+622;八つ;やっつ;eight;N5
+623;山;やま;mountain;N5
+624;やる;;to do;N5
+625;夕方;ゆうがた;evening;N5
+626;夕飯;ゆうはん;dinner;N5
+627;郵便局;ゆうびんきょく;post office;N5
+628;昨夜;ゆうべ;last night;N5
+629;有名;ゆうめい;famous;N5
+630;雪;ゆき;snow;N5
+631;行く;ゆく;to go;N5
+632;ゆっくりと;;slowly;N5
+633;八日;ようか;eight days, eighth day of the month;N5
+634;洋服;ようふく;western-style clothes;N5
+635;よく;;often, well;N5
+636;横;よこ;beside,side,width;N5
+637;四日;よっか;four days, fouth day of the month;N5
+638;四つ;よっつ;four;N5
+639;呼ぶ;よぶ;to call out,to invite;N5
+640;読む;よむ;to read;N5
+641;夜;よる;evening,night;N5
+642;弱い;よわい;weak;N5
+643;来月;らいげつ;next month;N5
+644;来週;らいしゅう;next week;N5
+645;来年;らいねん;next year;N5
+646;ラジオ;;radio;N5
+647;ラジカセ / ラジオカセット;;radio cassette player;N5
+648;りっぱ;;splendid;N5
+649;留学生;りゅうがくせい;overseas student;N5
+650;両親;りょうしん;both parents;N5
+651;料理;りょうり;cuisine;N5
+652;旅行;りょこう;travel;N5
+653;零;れい;zero;N5
+654;冷蔵庫;れいぞうこ;refrigerator;N5
+655;レコード;;record;N5
+656;レストラン;;restaurant;N5
+657;練習;れんしゅうする;to practice;N5
+658;廊下;ろうか;corridor;N5
+659;六;ろく;six;N5
+660;ワイシャツ;;business shirt;N5
+661;若い;わかい;young;N5
+662;分かる;わかる;to be understood;N5
+663;忘れる;わすれる;to forget;N5
+664;私;わたくし;(humble) I,myself;N5
+665;私;わたし;I,myself;N5
+666;渡す;わたす;to hand over;N5
+667;渡る;わたる;to go across;N5
+668;悪い;わるい;bad;N5
+669;より、ほう;;Used for comparison.;N5

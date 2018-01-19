@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.5.xsd
+                        http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd">
+
+    <property name="now" value="now()" dbms="postgresql"/>
+
+    <changeSet id="005-vocabulary" author="olszakm">
+        <createTable tableName="vocabulary">
+            <column name="id" type="bigint">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="word" type="varchar(255)">
+                <constraints nullable="false"/>
+            </column>
+
+            <column name="furigana" type="varchar(255)">
+                <constraints nullable="true"/>
+            </column>
+
+            <column name="meaning" type="varchar(255)">
+                <constraints nullable="false"/>
+            </column>
+
+            <column name="level" type="varchar(2)">
+                <constraints nullable="true"/>
+            </column>
+        </createTable>
+
+        <createIndex tableName="vocabulary" indexName="idx_furigana_vocabulary">
+            <column name="furigana" type="varchar(255)"/>
+        </createIndex>
+
+        <loadData encoding="UTF-8"
+                  file="liquibase/schema/vocabulary.csv"
+                  separator=";"
+                  tableName="vocabulary">
+        </loadData>
+
+    </changeSet>
+
+</databaseChangeLog>

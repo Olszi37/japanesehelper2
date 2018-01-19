@@ -1,25 +1,24 @@
 package pl.olszak.japanesehelper.japanesehelper.domain.record;
 
-import lombok.AccessLevel;
 import lombok.Data;
-import lombok.Setter;
 import pl.olszak.japanesehelper.japanesehelper.domain.EntityInterface;
 import pl.olszak.japanesehelper.japanesehelper.domain.user.UserEntity;
 
-import javax.persistence.*;
-import java.math.BigDecimal;
+import javax.persistence.Column;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.MappedSuperclass;
 
 @Data
 @MappedSuperclass
 public class RecordEntity implements EntityInterface{
 
-    private static final BigDecimal FAILURE = new BigDecimal("0.1");
+    private static final double FAILURE = 0.1d;
 
-    private static final BigDecimal SUCCESS = new BigDecimal("0.05");
+    private static final double SUCCESS = 0.05d;
 
     @Column(name = "weight", nullable = false)
-    @Setter(AccessLevel.NONE)
-    private BigDecimal weight;
+    private double weight;
 
     @ManyToOne
     @JoinColumn(name = "user_id")
@@ -27,19 +26,19 @@ public class RecordEntity implements EntityInterface{
 
     public void calculateWeight(boolean success){
         if(success){
-            weight = weight.add(SUCCESS);
-            if(weight.doubleValue() > 1){
-                weight = new BigDecimal("1.00");
+            weight = weight - SUCCESS;
+            if(weight < 0){
+                weight = 0.00d;
             }
         } else {
-            weight = weight.subtract(FAILURE);
-            if(weight.doubleValue() < 0){
-                weight = new BigDecimal("0.00");
+            weight = weight + FAILURE;
+            if(weight > 1){
+                weight = 1.00d;
             }
         }
     }
 
     protected RecordEntity(){
-        this.weight = new BigDecimal("0.00");
+        this.weight = 1.00d;
     }
 }
