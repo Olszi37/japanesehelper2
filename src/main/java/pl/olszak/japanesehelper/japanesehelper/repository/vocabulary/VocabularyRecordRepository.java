@@ -22,4 +22,13 @@ public interface VocabularyRecordRepository extends JpaRepository<VocabularyReco
     double averageWeightByUser(@Param("user") UserEntity user, @Param("level") JLPTLevel level);
 
     List<VocabularyRecordEntity> findByUserAndWeightBetweenAndVocabularyLevel(UserEntity userEntity, BigDecimal min, BigDecimal max, Pageable pageable, JLPTLevel level);
+
+    @Query("SELECT r FROM VocabularyRecordEntity r WHERE r.weight >= 0.0 AND r.weight < 0.4 AND r.vocabulary.level = :level")
+    List<VocabularyRecordEntity> getRecordsBetweenGroup1(@Param("level") JLPTLevel level);
+
+    @Query("SELECT r FROM VocabularyRecordEntity r WHERE r.weight >= 0.4 AND r.weight <= 0.7 AND r.vocabulary.level = :level")
+    List<VocabularyRecordEntity> getRecordsBetweenGroup2(@Param("level") JLPTLevel level);
+
+    @Query("SELECT r FROM VocabularyRecordEntity r WHERE r.weight > 0.7 AND r.weight <= 1.0 AND r.vocabulary.level = :level")
+    List<VocabularyRecordEntity> getRecordsBetweenGroup3(@Param("level") JLPTLevel level);
 }

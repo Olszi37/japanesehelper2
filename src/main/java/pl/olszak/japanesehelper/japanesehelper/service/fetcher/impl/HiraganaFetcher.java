@@ -1,17 +1,19 @@
 package pl.olszak.japanesehelper.japanesehelper.service.fetcher.impl;
 
-import com.google.common.collect.Lists;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+import pl.olszak.japanesehelper.japanesehelper.domain.enumerated.JLPTLevel;
 import pl.olszak.japanesehelper.japanesehelper.domain.hiragana.HiraganaRecordEntity;
+import pl.olszak.japanesehelper.japanesehelper.dto.record.FlashcardType;
 import pl.olszak.japanesehelper.japanesehelper.repository.record.HiraganaRecordRepository;
+import pl.olszak.japanesehelper.japanesehelper.service.fetcher.Fetcher;
 import pl.olszak.japanesehelper.japanesehelper.service.fetcher.FlashcardFetcher;
 
 import java.util.List;
-import java.util.Random;
 
 @Component
-public class HiraganaFetcher implements FlashcardFetcher<HiraganaRecordEntity> {
+public class HiraganaFetcher extends Fetcher<HiraganaRecordEntity>
+        implements FlashcardFetcher<HiraganaRecordEntity> {
 
     private HiraganaRecordRepository hiraganaRecordRepository;
 
@@ -21,24 +23,41 @@ public class HiraganaFetcher implements FlashcardFetcher<HiraganaRecordEntity> {
     }
 
     @Override
-    public List<HiraganaRecordEntity> getFlashcards() {
-        List<HiraganaRecordEntity> selected = Lists.newArrayList();
+    public List<HiraganaRecordEntity> getGroup1(JLPTLevel level) {
+        return hiraganaRecordRepository.getRecordsBetweenGroup1();
+    }
 
-        List<HiraganaRecordEntity> group1 = hiraganaRecordRepository.getRecordsBetweenGroup1();
-        List<HiraganaRecordEntity> group2 = hiraganaRecordRepository.getRecordsBetweenGroup2();
-        List<HiraganaRecordEntity> group3 = hiraganaRecordRepository.getRecordsBetweenGroup3();
-        List<List<HiraganaRecordEntity>> groups = Lists.newArrayList(group3, group2, group2, group1, group1, group1);
+    @Override
+    public List<HiraganaRecordEntity> getGroup2(JLPTLevel level) {
+        return hiraganaRecordRepository.getRecordsBetweenGroup2();
+    }
 
-        //TODO zabezpieczenie przed pustymi listami
+    @Override
+    public List<HiraganaRecordEntity> getGroup3(JLPTLevel level) {
+        return hiraganaRecordRepository.getRecordsBetweenGroup3();
+    }
 
-        Random random = new Random();
+    @Override
+    public boolean supports(FlashcardType type) {
+        return FlashcardType.HIRAGANA.equals(type);
+    }
 
-        for(int i = 0; i < 20; i++) {
-            int x = random.nextInt(groups.size());
-            System.out.println("Generated index: " + x);
-            List<HiraganaRecordEntity> takenList = groups.get(x);
-            selected.add(takenList.get(random.nextInt(takenList.size())));
-        }
+//    @Override
+//    public List<HiraganaRecordEntity> getFlashcards(JLPTLevel level) {
+//        List<HiraganaRecordEntity> selected = Lists.newArrayList();
+//
+//        List<HiraganaRecordEntity> group1 = hiraganaRecordRepository.getRecordsBetweenGroup1();
+//        List<HiraganaRecordEntity> group2 = hiraganaRecordRepository.getRecordsBetweenGroup2();
+//        List<HiraganaRecordEntity> group3 = hiraganaRecordRepository.getRecordsBetweenGroup3();
+//        List<List<HiraganaRecordEntity>> groups = getListOfLists(group1, group2, group3);
+//
+//        Random random = new Random();
+//
+//        for(int i = 0; i < 20; i++) {
+//            int x = random.nextInt(groups.size());
+//            List<HiraganaRecordEntity> takenList = groups.get(x);
+//            selected.add(takenList.get(random.nextInt(takenList.size())));
+//        }
 
 // SOLUTION 2
 //        double totalWeight = hiraganaRecordRepository.getSumOfWeights();
@@ -80,6 +99,26 @@ public class HiraganaFetcher implements FlashcardFetcher<HiraganaRecordEntity> {
 //            selected.add(result);
 //        }
 
-        return selected;
-    }
+//        return selected;
+//    }
+//
+//    private List<List<HiraganaRecordEntity>> getListOfLists(List<HiraganaRecordEntity> group1,
+//                                                            List<HiraganaRecordEntity> group2,
+//                                                            List<HiraganaRecordEntity> group3) {
+//        if (group1.isEmpty() && group2.isEmpty()) {
+//            return Lists.newArrayList(group3, group3, group3, group3, group3, group3);
+//        } else if (group1.isEmpty() && group3.isEmpty()) {
+//            return Lists.newArrayList(group2, group2, group2, group2, group2, group2);
+//        } else if (group2.isEmpty() && group3.isEmpty()) {
+//            return Lists.newArrayList(group1, group1, group1, group1, group1, group1);
+//        } else if(group1.isEmpty()) {
+//            return Lists.newArrayList(group2, group2, group2, group2, group3, group3);
+//        } else if (group2.isEmpty()) {
+//            return Lists.newArrayList(group1, group1, group1, group1, group3, group3);
+//        } else if (group3.isEmpty()) {
+//            return Lists.newArrayList(group1, group1, group1, group1, group2, group2);
+//        } else {
+//            return Lists.newArrayList(group3, group2, group2, group1, group1, group1);
+//        }
+//    }
 }

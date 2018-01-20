@@ -22,6 +22,7 @@ import pl.olszak.japanesehelper.japanesehelper.repository.user.UserRepository;
 import pl.olszak.japanesehelper.japanesehelper.service.fetcher.impl.HiraganaFetcher;
 import pl.olszak.japanesehelper.japanesehelper.service.hiragana.HiraganaService;
 import pl.olszak.japanesehelper.japanesehelper.service.user.UserService;
+import pl.olszak.japanesehelper.japanesehelper.util.FetcherResultUtil;
 
 import java.util.List;
 import java.util.concurrent.atomic.AtomicInteger;
@@ -57,6 +58,18 @@ public class HiraganaRecordTests {
                                  0.4, 0.95, 0.9, 0.8, 1.0, 0.6, 0.75, 0.75, 0.8, 0.9,
                                  0.75, 0.65, 0.2, 0.3, 0.35, 0.25 };
 
+    private double[] weights2 = {0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.1,
+                                 0.0, 0.0, 0.0, 0.25, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0,
+                                 0.3, 0.2, 0.6, 0.2, 0.1, 0.2, 0.65, 0.3, 0.3, 0.4,
+                                 0.4, 0.15, 0.6, 0.5, 0.55, 0.35, 0.5, 0.5, 0.6, 0.65,
+                                 0.15, 0.65, 0.2, 0.3, 0.35, 0.25 };
+
+    private double[] weights3 = {1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0,
+                                 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0,
+                                 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0,
+                                 0.9, 0.95, 0.9, 0.65, 0.5, 0.6, 0.45, 0.4, 0.6, 0.55,
+                                 0.7, 0.65, 0.65, 0.5, 0.45, 0.55 };
+
     @Before
     public void setup() {
         MockitoAnnotations.initMocks(this);
@@ -70,8 +83,8 @@ public class HiraganaRecordTests {
     }
 
     private void saveEmptyRecords(UserEntity user){
+        hiraganaRecordRepository.deleteAll();
         List<HiraganaEntity> hiraganas = hiraganaService.findAllEntities();
-        System.out.println("hiraganas: " + hiraganas);
 
         List<HiraganaRecordEntity> recordEntities = Lists.newArrayList();
 
@@ -91,7 +104,6 @@ public class HiraganaRecordTests {
         saveEmptyRecords(userEntity);
 
         List<HiraganaRecordEntity> setOne = hiraganaRecordRepository.findAll();
-        System.out.println(setOne);
 
         AtomicInteger i = new AtomicInteger(0);
         setOne = setOne.stream().peek(entity -> entity.setWeight(weights1[i.getAndIncrement()]))
@@ -107,7 +119,6 @@ public class HiraganaRecordTests {
         List<HiraganaRecordEntity> setOne = hiraganaRecordRepository.findAll();
         System.out.println(setOne);
 
-        AtomicInteger i = new AtomicInteger(0);
         setOne = setOne.stream().peek(entity -> entity.setWeight(0.0d)).collect(Collectors.toList());
         hiraganaRecordRepository.save(setOne);
     }
@@ -118,11 +129,39 @@ public class HiraganaRecordTests {
         saveEmptyRecords(userEntity);
 
         List<HiraganaRecordEntity> setOne = hiraganaRecordRepository.findAll();
-        System.out.println(setOne);
 
         AtomicInteger i = new AtomicInteger(0);
-        setOne = setOne.stream().peek(entity -> entity.setWeight(0.0d)).collect(Collectors.toList());
-        setOne.get(0).setWeight(0.2d);
+        setOne = setOne.stream().peek(entity -> entity.setWeight(weights2[i.getAndIncrement()]))
+                .collect(Collectors.toList());
+        hiraganaRecordRepository.save(setOne);
+    }
+
+    public void saveRecordSetFour() throws Exception {
+        UserEntity userEntity = userRepository.findOneByLogin("user").orElseThrow(() -> new Exception(""));
+
+        saveEmptyRecords(userEntity);
+
+        List<HiraganaRecordEntity> setOne = hiraganaRecordRepository.findAll();
+
+        AtomicInteger i = new AtomicInteger(0);
+        setOne = setOne.stream().peek(entity -> entity.setWeight(weights3[i.getAndIncrement()]))
+                .collect(Collectors.toList());
+        hiraganaRecordRepository.save(setOne);
+    }
+
+    public void saveRecordSetFive() throws Exception {
+        UserEntity userEntity = userRepository.findOneByLogin("user").orElseThrow(() -> new Exception(""));
+
+        saveEmptyRecords(userEntity);
+
+        List<HiraganaRecordEntity> setOne = hiraganaRecordRepository.findAll();
+        System.out.println(setOne);
+
+        setOne = setOne.stream().peek(entity -> entity.setWeight(1.0d)).collect(Collectors.toList());
+        setOne.get(2).setWeight(0.2d);
+        setOne.get(8).setWeight(0.1d);
+        setOne.get(25).setWeight(0.35d);
+        setOne.get(36).setWeight(0.15d);
         hiraganaRecordRepository.save(setOne);
     }
 
@@ -131,10 +170,9 @@ public class HiraganaRecordTests {
         saveRecordSetOne();
         HiraganaFetcher fetcher = new HiraganaFetcher(hiraganaRecordRepository);
 
-        List<HiraganaRecordEntity> fetched = fetcher.getFlashcards();
-        fetched.forEach(record -> {
-            System.out.println("w: " + record.getWeight() + " for: " + record.getHiragana().getId());
-        });
+        List<HiraganaRecordEntity> fetched = fetcher.getFlashcards(null);
+        FetcherResultUtil.getResultInfo(fetched);
+        FetcherResultUtil.getGroupInfo(fetched);
     }
 
     @Test
@@ -142,10 +180,9 @@ public class HiraganaRecordTests {
         saveRecordSetTwo();
         HiraganaFetcher fetcher = new HiraganaFetcher(hiraganaRecordRepository);
 
-        List<HiraganaRecordEntity> fetched = fetcher.getFlashcards();
-        fetched.forEach(record -> {
-            System.out.println("w: " + record.getWeight() + " for: " + record.getHiragana().getId());
-        });
+        List<HiraganaRecordEntity> fetched = fetcher.getFlashcards(null);
+        FetcherResultUtil.getResultInfo(fetched);
+        FetcherResultUtil.getGroupInfo(fetched);
     }
 
     @Test
@@ -153,9 +190,28 @@ public class HiraganaRecordTests {
         saveRecordSetThree();
         HiraganaFetcher fetcher = new HiraganaFetcher(hiraganaRecordRepository);
 
-        List<HiraganaRecordEntity> fetched = fetcher.getFlashcards();
-        fetched.forEach(record -> {
-            System.out.println("w: " + record.getWeight() + " for: " + record.getHiragana().getId());
-        });
+        List<HiraganaRecordEntity> fetched = fetcher.getFlashcards(null);
+        FetcherResultUtil.getResultInfo(fetched);
+        FetcherResultUtil.getGroupInfo(fetched);
+    }
+
+    @Test
+    public void fetchFlashcardsTest4() throws Exception {
+        saveRecordSetFour();
+        HiraganaFetcher fetcher = new HiraganaFetcher(hiraganaRecordRepository);
+
+        List<HiraganaRecordEntity> fetched = fetcher.getFlashcards(null);
+        FetcherResultUtil.getResultInfo(fetched);
+        FetcherResultUtil.getGroupInfo(fetched);
+    }
+
+    @Test
+    public void fetchFlashcardsTest5() throws Exception {
+        saveRecordSetFive();
+        HiraganaFetcher fetcher = new HiraganaFetcher(hiraganaRecordRepository);
+
+        List<HiraganaRecordEntity> fetched = fetcher.getFlashcards(null);
+        FetcherResultUtil.getResultInfo(fetched);
+        FetcherResultUtil.getGroupInfo(fetched);
     }
 }

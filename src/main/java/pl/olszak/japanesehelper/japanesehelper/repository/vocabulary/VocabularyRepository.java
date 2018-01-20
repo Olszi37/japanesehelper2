@@ -12,4 +12,6 @@ public interface VocabularyRepository extends JpaRepository<VocabularyEntity, Lo
 
     List<VocabularyEntity> findTop5ByIdNotAndLevel(Long id, JLPTLevel level);
 
+    List<VocabularyEntity> findByLevel(JLPTLevel level);
+
 }
