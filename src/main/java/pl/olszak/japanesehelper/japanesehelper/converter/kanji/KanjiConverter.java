@@ -16,6 +16,7 @@ public class KanjiConverter implements Converter<KanjiEntity, KanjiDTO>{
     @Override
     public KanjiDTO convertToDTO(KanjiEntity entity) {
         KanjiDTO dto = new KanjiDTO();
+        dto.setId(entity.getId());
         dto.setSign(entity.getSign());
         dto.setOnyomi(entity.getOnyomi());
         dto.setKunyomi(entity.getKunyomi());

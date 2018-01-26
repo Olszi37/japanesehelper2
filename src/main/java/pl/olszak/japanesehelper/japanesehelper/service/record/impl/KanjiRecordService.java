@@ -1,81 +1,92 @@
 package pl.olszak.japanesehelper.japanesehelper.service.record.impl;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import pl.olszak.japanesehelper.japanesehelper.converter.kanji.KanjiConverter;
 import pl.olszak.japanesehelper.japanesehelper.domain.enumerated.JLPTLevel;
+import pl.olszak.japanesehelper.japanesehelper.domain.kanji.KanjiEntity;
 import pl.olszak.japanesehelper.japanesehelper.domain.kanji.KanjiRecordEntity;
 import pl.olszak.japanesehelper.japanesehelper.domain.user.UserEntity;
-import pl.olszak.japanesehelper.japanesehelper.dto.record.FlashcardDTO;
 import pl.olszak.japanesehelper.japanesehelper.dto.record.FlashcardType;
 import pl.olszak.japanesehelper.japanesehelper.dto.record.KanjiFlashcardDTO;
-import pl.olszak.japanesehelper.japanesehelper.dto.record.UserRecordDTO;
-import pl.olszak.japanesehelper.japanesehelper.repository.kanji.KanjiRecordRepository;
+import pl.olszak.japanesehelper.japanesehelper.repository.record.KanjiRecordRepository;
+import pl.olszak.japanesehelper.japanesehelper.service.fetcher.FlashcardFetcher;
+import pl.olszak.japanesehelper.japanesehelper.service.fetcher.factory.FetcherFactory;
+import pl.olszak.japanesehelper.japanesehelper.service.fetcher.impl.KanjiFetcher;
 import pl.olszak.japanesehelper.japanesehelper.service.kanji.KanjiService;
+import pl.olszak.japanesehelper.japanesehelper.service.record.AbstractRecordService;
 import pl.olszak.japanesehelper.japanesehelper.service.record.RecordService;
 import pl.olszak.japanesehelper.japanesehelper.service.user.UserService;
 
 import java.util.List;
-import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 @Transactional
-public class KanjiRecordService implements RecordService<KanjiFlashcardDTO>{
+public class KanjiRecordService extends AbstractRecordService<KanjiRecordEntity, KanjiFlashcardDTO, KanjiEntity> implements RecordService<KanjiFlashcardDTO>{
 
     private KanjiService kanjiService;
-    @Qualifier("kanjiRecord")
     private KanjiRecordRepository kanjiRecordRepository;
     private UserService userService;
+    private FetcherFactory fetcherFactory;
+    private KanjiConverter kanjiConverter;
 
     @Autowired
-    public KanjiRecordService(KanjiService kanjiService, KanjiRecordRepository kanjiRecordRepository, UserService userService) {
+    public KanjiRecordService(KanjiService kanjiService, KanjiRecordRepository kanjiRecordRepository, UserService userService, FetcherFactory fetcherFactory, KanjiConverter kanjiConverter) {
+        super(userService);
         this.kanjiService = kanjiService;
         this.kanjiRecordRepository = kanjiRecordRepository;
         this.userService = userService;
-    }
-
-    @Override
-    public void save(List<UserRecordDTO> recordDTOs) {
-//        Optional<UserEntity> user = userService.findByLogin(SecurityUtils.getCurrentLoggedUserLogin());
-//        if(user.isPresent()){
-//            List<KanjiRecordEntity> kanjiRecords = Lists.newArrayList();
-//            recordDTO.getFlashcards().forEach(flashcard -> {
-//                kanjiRecords.add(createOrCalculateRecord(flashcard, user.get()));
-//            });
-//            kanjiRecordRepository.save(kanjiRecords);
-//        } else {
-//            throw new UsernameNotFoundException("User with given login is not found!");
-//        }
-    }
-
-    @Override
-    public List<KanjiFlashcardDTO> getFlashcards(JLPTLevel level, int flashcardCount) {
-        return null;
-    }
-
-    private KanjiRecordEntity createOrCalculateRecord(FlashcardDTO flashcardDTO, UserEntity userEntity){
-//        Optional<KanjiRecordEntity> entity = getRecord(flashcardDTO.getRecordId());
-//        if(entity.isPresent()){
-//            KanjiRecordEntity updatedEntity = entity.get();
-//            updatedEntity.calculateWeight(flashcardDTO.isSuccess());
-//            return updatedEntity;
-//        } else {
-//            KanjiRecordEntity newEntity = new KanjiRecordEntity();
-//            newEntity.setUser(userEntity);
-//            newEntity.setKanji(kanjiService.findOneEntity(flashcardDTO.getId()));
-//            newEntity.calculateWeight(flashcardDTO.isSuccess());
-//            return newEntity;
-//        }
-        return null;
-    }
-
-    private Optional<KanjiRecordEntity> getRecord(Long id){
-        return Optional.ofNullable(kanjiRecordRepository.findOne(id));
+        this.fetcherFactory = fetcherFactory;
+        this.kanjiConverter = kanjiConverter;
     }
 
     @Override
     public boolean supports(FlashcardType type) {
         return FlashcardType.KANJI.equals(type);
+    }
+
+    @Override
+    public List<KanjiRecordEntity> getRecords(JLPTLevel level, UserEntity userEntity) {
+        FlashcardFetcher fetcher = fetcherFactory.getFetcher(FlashcardType.KANJI);
+        return ((KanjiFetcher)fetcher).getFlashcards(level, userEntity);
+    }
+
+    @Override
+    public KanjiFlashcardDTO createFlashcard(KanjiRecordEntity record) {
+        KanjiFlashcardDTO flashcardDTO = new KanjiFlashcardDTO();
+        flashcardDTO.setCorrect(kanjiConverter.convertToDTO(record.getKanji()));
+        flashcardDTO.setOther(getOthers(record.getKanji().getId(), record.getKanji().getLevel()).stream()
+                .map(kanjiConverter::convertToDTO).collect(Collectors.toList()));
+        return null;
+    }
+
+    @Override
+    public boolean checkIfRecordsExistsForUser(UserEntity userEntity, JLPTLevel level) {
+        return kanjiRecordRepository.findFirstByUserAndKanjiLevel(userEntity, level).isPresent();
+    }
+
+    @Override
+    public List<KanjiEntity> getEntities(JLPTLevel level) {
+        return kanjiService.findByLevelEntities(level);
+    }
+
+    @Override
+    public KanjiRecordEntity createNewRecord(KanjiEntity kanjiEntity, UserEntity userEntity) {
+        KanjiRecordEntity entity = new KanjiRecordEntity();
+        entity.setUser(userEntity);
+        entity.setKanji(kanjiEntity);
+        return entity;
+    }
+
+    @Override
+    public KanjiRecordEntity getRecord(Long id) {
+        return kanjiRecordRepository.findOne(id);
+    }
+
+    @Override
+    public void saveRecords(List<KanjiRecordEntity> kanjiRecordEntities) {
+        kanjiRecordRepository.save(kanjiRecordEntities);
     }
 }

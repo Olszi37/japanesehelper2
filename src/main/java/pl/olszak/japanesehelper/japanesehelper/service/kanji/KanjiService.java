@@ -12,5 +12,9 @@ public interface KanjiService extends ServiceInterface<KanjiEntity, KanjiDTO, Lo
 
     List<KanjiDTO> findByLevel(JLPTLevel level);
 
+    List<KanjiEntity> findByLevelEntities(JLPTLevel level);
+
     Optional<KanjiDTO> findBySign(String sign);
+
+    List<KanjiEntity> getOther5Entities(Long id, JLPTLevel level);
 }

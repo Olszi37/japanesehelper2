@@ -59,7 +59,7 @@ public class VocabularyRecordTest {
             0.0, 0.45, 0.45, 0.25, 0.1, 0.7, 0.0, 0.2, 0.4, 0.9,
             0.5, 0.55, 0.6, 0.25, 0.25, 0.2, 0.75, 0.8, 0.45, 0.4,
             0.4, 0.95, 0.9, 0.8, 1.0, 0.6, 0.75, 0.75, 0.8, 0.9,
-            0.75, 0.65, 0.2, 0.3, 0.35, 0.25 };
+            0.75, 0.65, 0.2, 0.3, 0.35, 0.25 }; //TODO BAKA! list have more than 46 signs
 
     private double[] weights2 = {0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.1,
             0.0, 0.0, 0.0, 0.25, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0,
@@ -103,7 +103,7 @@ public class VocabularyRecordTest {
     }
 
     public void saveRecordSetOne() throws Exception {
-        UserEntity userEntity = userRepository.findOneByLogin("user").orElseThrow(() -> new Exception(""));
+        UserEntity userEntity = getUser();
 
         saveEmptyRecords(userEntity);
 
@@ -116,7 +116,7 @@ public class VocabularyRecordTest {
     }
 
     public void saveRecordSetTwo() throws Exception {
-        UserEntity userEntity = userRepository.findOneByLogin("user").orElseThrow(() -> new Exception(""));
+        UserEntity userEntity = getUser();
 
         saveEmptyRecords(userEntity);
 
@@ -128,7 +128,7 @@ public class VocabularyRecordTest {
     }
 
     public void saveRecordSetThree() throws Exception {
-        UserEntity userEntity = userRepository.findOneByLogin("user").orElseThrow(() -> new Exception(""));
+        UserEntity userEntity = getUser();
 
         saveEmptyRecords(userEntity);
 
@@ -141,7 +141,7 @@ public class VocabularyRecordTest {
     }
 
     public void saveRecordSetFour() throws Exception {
-        UserEntity userEntity = userRepository.findOneByLogin("user").orElseThrow(() -> new Exception(""));
+        UserEntity userEntity = getUser();
 
         saveEmptyRecords(userEntity);
 
@@ -154,7 +154,7 @@ public class VocabularyRecordTest {
     }
 
     public void saveRecordSetFive() throws Exception {
-        UserEntity userEntity = userRepository.findOneByLogin("user").orElseThrow(() -> new Exception(""));
+        UserEntity userEntity = getUser();
 
         saveEmptyRecords(userEntity);
 
@@ -171,57 +171,66 @@ public class VocabularyRecordTest {
 
     @Test
     public void fetchFlashcardsTest1() throws Exception {
+        UserEntity user = getUser();
         saveRecordSetOne();
 //        HiraganaFetcher fetcher = new HiraganaFetcher(hiraganaRecordRepository);
         VocabularyFetcher fetcher = (VocabularyFetcher) getVocabularyFetcher();
 
-        List<VocabularyRecordEntity> fetched = fetcher.getFlashcards(JLPTLevel.N5);
+        List<VocabularyRecordEntity> fetched = fetcher.getFlashcards(JLPTLevel.N5, user);
         FetcherResultUtil.getResultInfoVocabulary(fetched);
         FetcherResultUtil.getGroupInfoVocabulary(fetched);
     }
 
     @Test
     public void fetchFlashcardsTest2() throws Exception {
+        UserEntity user = getUser();
         saveRecordSetTwo();
 //        HiraganaFetcher fetcher = new HiraganaFetcher(hiraganaRecordRepository);
         VocabularyFetcher fetcher = (VocabularyFetcher) getVocabularyFetcher();
 
-        List<VocabularyRecordEntity> fetched = fetcher.getFlashcards(JLPTLevel.N5);
+        List<VocabularyRecordEntity> fetched = fetcher.getFlashcards(JLPTLevel.N5, user);
         FetcherResultUtil.getResultInfoVocabulary(fetched);
         FetcherResultUtil.getGroupInfoVocabulary(fetched);
     }
 
     @Test
     public void fetchFlashcardsTest3() throws Exception {
+        UserEntity user = getUser();
         saveRecordSetThree();
         VocabularyFetcher fetcher = (VocabularyFetcher) getVocabularyFetcher();
 
-        List<VocabularyRecordEntity> fetched = fetcher.getFlashcards(JLPTLevel.N5);
+        List<VocabularyRecordEntity> fetched = fetcher.getFlashcards(JLPTLevel.N5, user);
         FetcherResultUtil.getResultInfoVocabulary(fetched);
         FetcherResultUtil.getGroupInfoVocabulary(fetched);
     }
 
     @Test
     public void fetchFlashcardsTest4() throws Exception {
+        UserEntity user = getUser();
         saveRecordSetFour();
         VocabularyFetcher fetcher = (VocabularyFetcher) getVocabularyFetcher();
 
-        List<VocabularyRecordEntity> fetched = fetcher.getFlashcards(JLPTLevel.N5);
+        List<VocabularyRecordEntity> fetched = fetcher.getFlashcards(JLPTLevel.N5, user);
         FetcherResultUtil.getResultInfoVocabulary(fetched);
         FetcherResultUtil.getGroupInfoVocabulary(fetched);
     }
 
     @Test
     public void fetchFlashcardsTest5() throws Exception {
+        UserEntity user = getUser();
         saveRecordSetFive();
         VocabularyFetcher fetcher = (VocabularyFetcher) getVocabularyFetcher();
 
-        List<VocabularyRecordEntity> fetched = fetcher.getFlashcards(JLPTLevel.N5);
+        List<VocabularyRecordEntity> fetched = fetcher.getFlashcards(JLPTLevel.N5, user);
         FetcherResultUtil.getResultInfoVocabulary(fetched);
         FetcherResultUtil.getGroupInfoVocabulary(fetched);
     }
 
     private FlashcardFetcher getVocabularyFetcher() {
         return fetcherFactory.getFetcher(FlashcardType.VOCABULARY);
+    }
+
+    private UserEntity getUser() throws Exception {
+        return userRepository.findOneByLogin("user").orElseThrow(() -> new Exception(""));
     }
 }

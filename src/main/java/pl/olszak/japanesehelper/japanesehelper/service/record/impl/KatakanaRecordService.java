@@ -1,81 +1,92 @@
 package pl.olszak.japanesehelper.japanesehelper.service.record.impl;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import pl.olszak.japanesehelper.japanesehelper.converter.katakana.KatakanaConverter;
 import pl.olszak.japanesehelper.japanesehelper.domain.enumerated.JLPTLevel;
+import pl.olszak.japanesehelper.japanesehelper.domain.katakana.KatakanaEntity;
 import pl.olszak.japanesehelper.japanesehelper.domain.katakana.KatakanaRecordEntity;
 import pl.olszak.japanesehelper.japanesehelper.domain.user.UserEntity;
-import pl.olszak.japanesehelper.japanesehelper.dto.record.FlashcardDTO;
 import pl.olszak.japanesehelper.japanesehelper.dto.record.FlashcardType;
 import pl.olszak.japanesehelper.japanesehelper.dto.record.KanaFlashcardDTO;
-import pl.olszak.japanesehelper.japanesehelper.dto.record.UserRecordDTO;
-import pl.olszak.japanesehelper.japanesehelper.repository.katakana.KatakanaRecordRepository;
+import pl.olszak.japanesehelper.japanesehelper.repository.record.KatakanaRecordRepository;
+import pl.olszak.japanesehelper.japanesehelper.service.fetcher.FlashcardFetcher;
+import pl.olszak.japanesehelper.japanesehelper.service.fetcher.factory.FetcherFactory;
+import pl.olszak.japanesehelper.japanesehelper.service.fetcher.impl.KatakanaFetcher;
 import pl.olszak.japanesehelper.japanesehelper.service.katakana.KatakanaService;
+import pl.olszak.japanesehelper.japanesehelper.service.record.AbstractRecordService;
 import pl.olszak.japanesehelper.japanesehelper.service.record.RecordService;
 import pl.olszak.japanesehelper.japanesehelper.service.user.UserService;
 
 import java.util.List;
-import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 @Transactional
-public class KatakanaRecordService implements RecordService<KanaFlashcardDTO>{
+public class KatakanaRecordService extends AbstractRecordService<KatakanaRecordEntity, KanaFlashcardDTO, KatakanaEntity> implements RecordService<KanaFlashcardDTO>{
 
     private KatakanaService katakanaService;
-    @Qualifier("katakanaRecord")
     private KatakanaRecordRepository katakanaRecordRepository;
     private UserService userService;
+    private FetcherFactory fetcherFactory;
+    private KatakanaConverter katakanaConverter;
 
     @Autowired
-    public KatakanaRecordService(KatakanaService katakanaService, KatakanaRecordRepository katakanaRecordRepository, UserService userService) {
+    public KatakanaRecordService(KatakanaService katakanaService, KatakanaRecordRepository katakanaRecordRepository, UserService userService, FetcherFactory fetcherFactory, KatakanaConverter katakanaConverter) {
+        super(userService);
         this.katakanaService = katakanaService;
         this.katakanaRecordRepository = katakanaRecordRepository;
         this.userService = userService;
-    }
-
-    @Override
-    public void save(List<UserRecordDTO> recordDTOs) {
-//        Optional<UserEntity> user = userService.findByLogin(SecurityUtils.getCurrentLoggedUserLogin());
-//        if(user.isPresent()){
-//            List<KatakanaRecordEntity> katakanaRecords = Lists.newArrayList();
-//            recordDTO.getFlashcards().forEach(flashcard -> {
-//                katakanaRecords.add(createOrCalculateRecord(flashcard, user.get()));
-//            });
-//            katakanaRecordRepository.save(katakanaRecords);
-//        } else {
-//            throw new UsernameNotFoundException("User with given login is not found!");
-//        }
-    }
-
-    @Override
-    public List<KanaFlashcardDTO> getFlashcards(JLPTLevel level, int flashcardCount) {
-        return null;
-    }
-
-    private KatakanaRecordEntity createOrCalculateRecord(FlashcardDTO flashcardDTO, UserEntity userEntity){
-//        Optional<KatakanaRecordEntity> entity = getRecord(flashcardDTO.getRecordId());
-//        if(entity.isPresent()){
-//            KatakanaRecordEntity updatedEntity = entity.get();
-//            updatedEntity.calculateWeight(flashcardDTO.isSuccess());
-//            return updatedEntity;
-//        } else {
-//            KatakanaRecordEntity newEntity = new KatakanaRecordEntity();
-//            newEntity.setUser(userEntity);
-//            newEntity.setKatakana(katakanaService.findOneEntity(flashcardDTO.getId()));
-//            newEntity.calculateWeight(flashcardDTO.isSuccess());
-//            return newEntity;
-//        }
-        return null;
-    }
-
-    private Optional<KatakanaRecordEntity> getRecord(Long id){
-        return Optional.ofNullable(katakanaRecordRepository.findOne(id));
+        this.fetcherFactory = fetcherFactory;
+        this.katakanaConverter = katakanaConverter;
     }
 
     @Override
     public boolean supports(FlashcardType type) {
         return FlashcardType.KATAKANA.equals(type);
+    }
+
+    @Override
+    public List<KatakanaRecordEntity> getRecords(JLPTLevel level, UserEntity userEntity) {
+        FlashcardFetcher fetcher = fetcherFactory.getFetcher(FlashcardType.KATAKANA);
+        return ((KatakanaFetcher)fetcher).getFlashcards(level, userEntity);
+    }
+
+    @Override
+    public KanaFlashcardDTO createFlashcard(KatakanaRecordEntity record) {
+        KanaFlashcardDTO kanaFlashcardDTO = new KanaFlashcardDTO();
+        kanaFlashcardDTO.setCorrect(katakanaConverter.convertToDTO(record.getKatakana()));
+        kanaFlashcardDTO.setOther(getOthers(record.getKatakana().getId(), null).stream()
+                .map(katakanaConverter::convertToDTO).collect(Collectors.toList()));
+        return kanaFlashcardDTO;
+    }
+
+    @Override
+    public boolean checkIfRecordsExistsForUser(UserEntity userEntity, JLPTLevel level) {
+        return katakanaRecordRepository.findFirstByUser(userEntity).isPresent();
+    }
+
+    @Override
+    public List<KatakanaEntity> getEntities(JLPTLevel level) {
+        return katakanaService.findAllEntities();
+    }
+
+    @Override
+    public KatakanaRecordEntity createNewRecord(KatakanaEntity katakanaEntity, UserEntity userEntity) {
+        KatakanaRecordEntity entity = new KatakanaRecordEntity();
+        entity.setUser(userEntity);
+        entity.setKatakana(katakanaEntity);
+        return entity;
+    }
+
+    @Override
+    public KatakanaRecordEntity getRecord(Long id) {
+        return katakanaRecordRepository.findOne(id);
+    }
+
+    @Override
+    public void saveRecords(List<KatakanaRecordEntity> katakanaRecordEntities) {
+        katakanaRecordRepository.save(katakanaRecordEntities);
     }
 }

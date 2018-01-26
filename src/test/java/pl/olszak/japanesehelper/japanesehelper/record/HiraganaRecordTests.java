@@ -99,7 +99,7 @@ public class HiraganaRecordTests {
     }
 
     public void saveRecordSetOne() throws Exception {
-        UserEntity userEntity = userRepository.findOneByLogin("user").orElseThrow(() -> new Exception(""));
+        UserEntity userEntity = getUser();
 
         saveEmptyRecords(userEntity);
 
@@ -112,7 +112,7 @@ public class HiraganaRecordTests {
     }
 
     public void saveRecordSetTwo() throws Exception {
-        UserEntity userEntity = userRepository.findOneByLogin("user").orElseThrow(() -> new Exception(""));
+        UserEntity userEntity = getUser();
 
         saveEmptyRecords(userEntity);
 
@@ -124,7 +124,7 @@ public class HiraganaRecordTests {
     }
 
     public void saveRecordSetThree() throws Exception {
-        UserEntity userEntity = userRepository.findOneByLogin("user").orElseThrow(() -> new Exception(""));
+        UserEntity userEntity = getUser();
 
         saveEmptyRecords(userEntity);
 
@@ -137,7 +137,7 @@ public class HiraganaRecordTests {
     }
 
     public void saveRecordSetFour() throws Exception {
-        UserEntity userEntity = userRepository.findOneByLogin("user").orElseThrow(() -> new Exception(""));
+        UserEntity userEntity = getUser();
 
         saveEmptyRecords(userEntity);
 
@@ -150,7 +150,7 @@ public class HiraganaRecordTests {
     }
 
     public void saveRecordSetFive() throws Exception {
-        UserEntity userEntity = userRepository.findOneByLogin("user").orElseThrow(() -> new Exception(""));
+        UserEntity userEntity = getUser();
 
         saveEmptyRecords(userEntity);
 
@@ -167,51 +167,60 @@ public class HiraganaRecordTests {
 
     @Test
     public void fetchFlashcardsTest1() throws Exception {
+        UserEntity userEntity = getUser();
         saveRecordSetOne();
         HiraganaFetcher fetcher = new HiraganaFetcher(hiraganaRecordRepository);
 
-        List<HiraganaRecordEntity> fetched = fetcher.getFlashcards(null);
+        List<HiraganaRecordEntity> fetched = fetcher.getFlashcards(null, userEntity);
         FetcherResultUtil.getResultInfo(fetched);
         FetcherResultUtil.getGroupInfo(fetched);
     }
 
     @Test
     public void fetchFlashcardsTest2() throws Exception {
+        UserEntity userEntity = getUser();
         saveRecordSetTwo();
         HiraganaFetcher fetcher = new HiraganaFetcher(hiraganaRecordRepository);
 
-        List<HiraganaRecordEntity> fetched = fetcher.getFlashcards(null);
+        List<HiraganaRecordEntity> fetched = fetcher.getFlashcards(null, userEntity);
         FetcherResultUtil.getResultInfo(fetched);
         FetcherResultUtil.getGroupInfo(fetched);
     }
 
     @Test
     public void fetchFlashcardsTest3() throws Exception {
+        UserEntity userEntity = getUser();
         saveRecordSetThree();
         HiraganaFetcher fetcher = new HiraganaFetcher(hiraganaRecordRepository);
 
-        List<HiraganaRecordEntity> fetched = fetcher.getFlashcards(null);
+        List<HiraganaRecordEntity> fetched = fetcher.getFlashcards(null, userEntity);
         FetcherResultUtil.getResultInfo(fetched);
         FetcherResultUtil.getGroupInfo(fetched);
     }
 
     @Test
     public void fetchFlashcardsTest4() throws Exception {
+        UserEntity userEntity = getUser();
         saveRecordSetFour();
         HiraganaFetcher fetcher = new HiraganaFetcher(hiraganaRecordRepository);
 
-        List<HiraganaRecordEntity> fetched = fetcher.getFlashcards(null);
+        List<HiraganaRecordEntity> fetched = fetcher.getFlashcards(null, userEntity);
         FetcherResultUtil.getResultInfo(fetched);
         FetcherResultUtil.getGroupInfo(fetched);
     }
 
     @Test
     public void fetchFlashcardsTest5() throws Exception {
+        UserEntity userEntity = getUser();
         saveRecordSetFive();
         HiraganaFetcher fetcher = new HiraganaFetcher(hiraganaRecordRepository);
 
-        List<HiraganaRecordEntity> fetched = fetcher.getFlashcards(null);
+        List<HiraganaRecordEntity> fetched = fetcher.getFlashcards(null, userEntity);
         FetcherResultUtil.getResultInfo(fetched);
         FetcherResultUtil.getGroupInfo(fetched);
+    }
+
+    private UserEntity getUser() throws Exception {
+        return userRepository.findOneByLogin("user").orElseThrow(() -> new Exception("User not found!"));
     }
 }

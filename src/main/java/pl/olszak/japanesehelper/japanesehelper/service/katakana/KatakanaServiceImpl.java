@@ -9,6 +9,8 @@ import pl.olszak.japanesehelper.japanesehelper.dto.kana.KanaDTO;
 import pl.olszak.japanesehelper.japanesehelper.repository.katakana.KatakanaRepository;
 import pl.olszak.japanesehelper.japanesehelper.service.AbstractService;
 
+import java.util.List;
+
 @Service
 @Transactional
 public class KatakanaServiceImpl extends AbstractService<KatakanaEntity, KanaDTO, Long> implements KatakanaService{
@@ -22,5 +24,10 @@ public class KatakanaServiceImpl extends AbstractService<KatakanaEntity, KanaDTO
         super(converter, repository);
         this.repository = repository;
         this.converter = converter;
+    }
+
+    @Override
+    public List<KatakanaEntity> getOther5Entities(Long id) {
+        return repository.findTop5ByIdNot(id);
     }
 }

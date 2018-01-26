@@ -3,18 +3,19 @@ package pl.olszak.japanesehelper.japanesehelper.service.fetcher;
 import com.google.common.collect.Lists;
 import pl.olszak.japanesehelper.japanesehelper.domain.enumerated.JLPTLevel;
 import pl.olszak.japanesehelper.japanesehelper.domain.record.RecordEntity;
+import pl.olszak.japanesehelper.japanesehelper.domain.user.UserEntity;
 
 import java.util.List;
 import java.util.Random;
 
 public abstract class Fetcher<RECORD extends RecordEntity> {
 
-    public List<RECORD> getFlashcards(JLPTLevel level) {
+    public List<RECORD> getFlashcards(JLPTLevel level, UserEntity userEntity) {
         List<RECORD> selected = Lists.newArrayList();
 
-        List<RECORD> group1 = getGroup1(level);
-        List<RECORD> group2 = getGroup2(level);
-        List<RECORD> group3 = getGroup3(level);
+        List<RECORD> group1 = getGroup1(level, userEntity);
+        List<RECORD> group2 = getGroup2(level, userEntity);
+        List<RECORD> group3 = getGroup3(level, userEntity);
 
         List<List<RECORD>> listOfGroups = getListOfGroups(group1, group2, group3);
 
@@ -29,9 +30,9 @@ public abstract class Fetcher<RECORD extends RecordEntity> {
         return selected;
     }
 
-    public abstract List<RECORD> getGroup1(JLPTLevel level);
-    public abstract List<RECORD> getGroup2(JLPTLevel level);
-    public abstract List<RECORD> getGroup3(JLPTLevel level);
+    public abstract List<RECORD> getGroup1(JLPTLevel level, UserEntity userEntity);
+    public abstract List<RECORD> getGroup2(JLPTLevel level, UserEntity userEntity);
+    public abstract List<RECORD> getGroup3(JLPTLevel level, UserEntity userEntity);
 
     private List<List<RECORD>> getListOfGroups(List<RECORD> group1,
                                               List<RECORD> group2,

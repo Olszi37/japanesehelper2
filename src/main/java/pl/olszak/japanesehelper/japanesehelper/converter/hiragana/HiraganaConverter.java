@@ -20,5 +20,4 @@ public class HiraganaConverter implements Converter<HiraganaEntity, KanaDTO> {
         dto.setReading(entity.getReading());
         return dto;
     }
-    // TODO refactor
 }

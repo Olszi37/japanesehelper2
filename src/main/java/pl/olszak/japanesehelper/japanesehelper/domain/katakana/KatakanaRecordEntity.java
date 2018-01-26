@@ -2,6 +2,7 @@ package pl.olszak.japanesehelper.japanesehelper.domain.katakana;
 
 import lombok.Data;
 import lombok.EqualsAndHashCode;
+import pl.olszak.japanesehelper.japanesehelper.domain.EntityInterface;
 import pl.olszak.japanesehelper.japanesehelper.domain.record.RecordEntity;
 
 import javax.persistence.*;
@@ -10,7 +11,7 @@ import javax.persistence.*;
 @Entity
 @Table(name = "katakana_records")
 @EqualsAndHashCode(callSuper = true)
-public class KatakanaRecordEntity extends RecordEntity{
+public class KatakanaRecordEntity extends RecordEntity implements EntityInterface {
 
     @Id
     @Column(name = "id")
@@ -22,6 +23,6 @@ public class KatakanaRecordEntity extends RecordEntity{
     private Long id;
 
     @ManyToOne
-    @JoinColumn(name = "katakana_in")
+    @JoinColumn(name = "katakana_id")
     private KatakanaEntity katakana;
 }

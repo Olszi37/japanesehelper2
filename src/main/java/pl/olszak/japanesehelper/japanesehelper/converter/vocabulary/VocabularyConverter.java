@@ -16,6 +16,7 @@ public class VocabularyConverter implements Converter<VocabularyEntity, Vocabula
     @Override
     public VocabularyDTO convertToDTO(VocabularyEntity entity) {
         VocabularyDTO dto = new VocabularyDTO();
+        dto.setId(entity.getId());
         dto.setWord(entity.getWord());
         dto.setFurigana(entity.getFurigana());
         dto.setMeaning(entity.getMeaning());

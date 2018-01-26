@@ -35,9 +35,19 @@ public class KanjiServiceImpl extends AbstractService<KanjiEntity, KanjiDTO, Lon
     }
 
     @Override
+    public List<KanjiEntity> findByLevelEntities(JLPTLevel level) {
+        return repository.findByLevel(level);
+    }
+
+    @Override
     @Transactional(readOnly = true)
     public Optional<KanjiDTO> findBySign(String sign) {
         return repository.findBySign(sign).map(converter::convertToDTO);
+    }
+
+    @Override
+    public List<KanjiEntity> getOther5Entities(Long id, JLPTLevel level) {
+        return repository.findTop5ByIdNotAndLevel(id, level);
     }
 
 }

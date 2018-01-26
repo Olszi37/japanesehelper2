@@ -1,7 +1,6 @@
 package pl.olszak.japanesehelper.japanesehelper.domain.record;
 
 import lombok.Data;
-import pl.olszak.japanesehelper.japanesehelper.domain.EntityInterface;
 import pl.olszak.japanesehelper.japanesehelper.domain.user.UserEntity;
 
 import javax.persistence.Column;
@@ -11,7 +10,7 @@ import javax.persistence.MappedSuperclass;
 
 @Data
 @MappedSuperclass
-public class RecordEntity implements EntityInterface{
+public class RecordEntity {
 
     private static final double FAILURE = 0.1d;
 

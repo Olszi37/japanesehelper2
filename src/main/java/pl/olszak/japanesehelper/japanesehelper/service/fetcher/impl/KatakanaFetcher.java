@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import pl.olszak.japanesehelper.japanesehelper.domain.enumerated.JLPTLevel;
 import pl.olszak.japanesehelper.japanesehelper.domain.katakana.KatakanaRecordEntity;
+import pl.olszak.japanesehelper.japanesehelper.domain.user.UserEntity;
 import pl.olszak.japanesehelper.japanesehelper.dto.record.FlashcardType;
 import pl.olszak.japanesehelper.japanesehelper.repository.record.KatakanaRecordRepository;
 import pl.olszak.japanesehelper.japanesehelper.service.fetcher.Fetcher;
@@ -23,18 +24,18 @@ public class KatakanaFetcher extends Fetcher<KatakanaRecordEntity>
     }
 
     @Override
-    public List<KatakanaRecordEntity> getGroup1(JLPTLevel level) {
-        return katakanaRecordRepository.getRecordsBetweenGroup1();
+    public List<KatakanaRecordEntity> getGroup1(JLPTLevel level, UserEntity userEntity) {
+        return katakanaRecordRepository.getRecordsBetweenGroup1(userEntity);
     }
 
     @Override
-    public List<KatakanaRecordEntity> getGroup2(JLPTLevel level) {
-        return katakanaRecordRepository.getRecordsBetweenGroup2();
+    public List<KatakanaRecordEntity> getGroup2(JLPTLevel level, UserEntity userEntity) {
+        return katakanaRecordRepository.getRecordsBetweenGroup2(userEntity);
     }
 
     @Override
-    public List<KatakanaRecordEntity> getGroup3(JLPTLevel level) {
-        return katakanaRecordRepository.getRecordsBetweenGroup3();
+    public List<KatakanaRecordEntity> getGroup3(JLPTLevel level, UserEntity userEntity) {
+        return katakanaRecordRepository.getRecordsBetweenGroup3(userEntity);
     }
 
     @Override

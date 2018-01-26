@@ -2,6 +2,7 @@ package pl.olszak.japanesehelper.japanesehelper.domain.vocabulary;
 
 import lombok.Data;
 import lombok.EqualsAndHashCode;
+import pl.olszak.japanesehelper.japanesehelper.domain.EntityInterface;
 import pl.olszak.japanesehelper.japanesehelper.domain.record.RecordEntity;
 
 import javax.persistence.*;
@@ -10,7 +11,7 @@ import javax.persistence.*;
 @Entity
 @Table(name = "vocabulary_records")
 @EqualsAndHashCode(callSuper = true)
-public class VocabularyRecordEntity extends RecordEntity{
+public class VocabularyRecordEntity extends RecordEntity implements EntityInterface {
 
     @Id
     @Column(name = "id")
