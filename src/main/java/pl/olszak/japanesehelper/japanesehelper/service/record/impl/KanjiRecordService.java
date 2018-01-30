@@ -56,6 +56,7 @@ public class KanjiRecordService extends AbstractRecordService<KanjiRecordEntity,
     @Override
     public KanjiFlashcardDTO createFlashcard(KanjiRecordEntity record) {
         KanjiFlashcardDTO flashcardDTO = new KanjiFlashcardDTO();
+        flashcardDTO.setRecordId(record.getId());
         flashcardDTO.setCorrect(kanjiConverter.convertToDTO(record.getKanji()));
         flashcardDTO.setOther(getOthers(record.getKanji().getId(), record.getKanji().getLevel()).stream()
                 .map(kanjiConverter::convertToDTO).collect(Collectors.toList()));

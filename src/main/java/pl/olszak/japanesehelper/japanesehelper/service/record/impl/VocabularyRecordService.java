@@ -56,6 +56,7 @@ public class VocabularyRecordService extends AbstractRecordService<VocabularyRec
     @Override
     public VocabularyFlashcardDTO createFlashcard(VocabularyRecordEntity record) {
         VocabularyFlashcardDTO flashcardDTO = new VocabularyFlashcardDTO();
+        flashcardDTO.setRecordId(record.getId());
         flashcardDTO.setCorrect(vocabularyConverter.convertToDTO(record.getVocabulary()));
         flashcardDTO.setOther(getOthers(record.getVocabulary().getId(), record.getVocabulary().getLevel())
                 .stream().map(vocabularyConverter::convertToDTO).collect(Collectors.toList()));

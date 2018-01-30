@@ -142,6 +142,7 @@ public class HiraganaRecordService extends AbstractRecordService<HiraganaRecordE
     @Override
     public KanaFlashcardDTO createFlashcard(HiraganaRecordEntity record) {
         KanaFlashcardDTO kanaFlashcard = new KanaFlashcardDTO();
+        kanaFlashcard.setRecordId(record.getId());
         kanaFlashcard.setCorrect(hiraganaConverter.convertToDTO(record.getHiragana()));
         kanaFlashcard.setOther(getOthers(record.getHiragana().getId(), null).stream()
                 .map(hiraganaConverter::convertToDTO).collect(Collectors.toList()));

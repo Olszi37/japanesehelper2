@@ -25,19 +25,19 @@ public class RecordEntity {
 
     public void calculateWeight(boolean success){
         if(success){
-            weight = weight - SUCCESS;
-            if(weight < 0){
-                weight = 0.00d;
+            weight += SUCCESS;
+            if(weight > 1d){
+                weight = 1.00d;
             }
         } else {
-            weight = weight + FAILURE;
-            if(weight > 1){
-                weight = 1.00d;
+            weight -= FAILURE;
+            if(weight < 0d){
+                weight = 0.00d;
             }
         }
     }
 
     protected RecordEntity(){
-        this.weight = 1.00d;
+        this.weight = 0.00d;
     }
 }

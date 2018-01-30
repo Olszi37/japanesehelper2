@@ -56,6 +56,7 @@ public class KatakanaRecordService extends AbstractRecordService<KatakanaRecordE
     @Override
     public KanaFlashcardDTO createFlashcard(KatakanaRecordEntity record) {
         KanaFlashcardDTO kanaFlashcardDTO = new KanaFlashcardDTO();
+        kanaFlashcardDTO.setRecordId(record.getId());
         kanaFlashcardDTO.setCorrect(katakanaConverter.convertToDTO(record.getKatakana()));
         kanaFlashcardDTO.setOther(getOthers(record.getKatakana().getId(), null).stream()
                 .map(katakanaConverter::convertToDTO).collect(Collectors.toList()));
