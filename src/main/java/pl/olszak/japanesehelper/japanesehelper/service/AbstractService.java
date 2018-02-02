@@ -13,7 +13,7 @@ import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Transactional
-public class AbstractService<ENTITY extends EntityInterface, DTO extends AbstractDTO, ID extends Serializable> {
+public abstract class AbstractService<ENTITY extends EntityInterface, DTO extends AbstractDTO, ID extends Serializable> {
 
     private Converter<ENTITY, DTO> converter;
 
