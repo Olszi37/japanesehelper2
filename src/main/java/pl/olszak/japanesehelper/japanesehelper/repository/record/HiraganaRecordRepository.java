@@ -22,5 +22,17 @@ public interface HiraganaRecordRepository extends JpaRepository<HiraganaRecordEn
     @Query("SELECT r FROM HiraganaRecordEntity r WHERE r.weight > 0.7 AND r.weight <= 1.0 AND r.user = :user")
     List<HiraganaRecordEntity> getRecordsBetweenGroup3(@Param("user") UserEntity userEntity);
 
+    @Query("SELECT COUNT(r) FROM HiraganaRecordEntity r WHERE r.weight = 0.0 AND r.user = :user")
+    int countUntouchedRecords(@Param("user") UserEntity userEntity);
+
+    @Query("SELECT COUNT(r) FROM HiraganaRecordEntity r WHERE r.weight > 0.0 AND r.weight < 0.4 AND r.user = :user")
+    int countWeakKnownRecords(@Param("user") UserEntity userEntity);
+
+    @Query("SELECT COUNT(r) FROM HiraganaRecordEntity r WHERE r.weight > 0.7 AND r.weight < 1.0 AND r.user = :user")
+    int countWellKnownRecords(@Param("user") UserEntity userEntity);
+
+    @Query("SELECT COUNT(r) FROM HiraganaRecordEntity r WHERE r.weight = 1.0 AND r.user = :user")
+    int countMasteredRecords(@Param("user") UserEntity userEntity);
+
     Optional<HiraganaRecordEntity> findFirstByUser(UserEntity userEntity);
 }

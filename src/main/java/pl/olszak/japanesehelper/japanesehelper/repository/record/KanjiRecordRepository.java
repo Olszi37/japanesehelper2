@@ -25,5 +25,17 @@ public interface KanjiRecordRepository extends JpaRepository<KanjiRecordEntity, 
     @Query("SELECT r FROM KanjiRecordEntity r WHERE r.weight > 0.7 AND r.weight <= 1.0 AND r.kanji.level = :level AND r.user = :user")
     List<KanjiRecordEntity> getRecordsBetweenGroup3(@Param("level") JLPTLevel level, @Param("user")UserEntity userEntity);
 
+    @Query("SELECT COUNT(r) FROM KanjiRecordEntity r WHERE r.weight = 0.0 AND r.user = :user AND r.kanji.level = :level")
+    int countUntouchedRecords(@Param("level") JLPTLevel level, @Param("user") UserEntity userEntity);
+
+    @Query("SELECT COUNT(r) FROM KanjiRecordEntity r WHERE r.weight > 0.0 AND r.weight < 0.4 AND r.user = :user AND r.kanji.level = :level")
+    int countWeakKnownRecords(@Param("level") JLPTLevel level, @Param("user") UserEntity userEntity);
+
+    @Query("SELECT COUNT(r) FROM KanjiRecordEntity r WHERE r.weight > 0.7 AND r.weight < 1.0 AND r.user = :user AND r.kanji.level = :level")
+    int countWellKnownRecords(@Param("level") JLPTLevel level, @Param("user") UserEntity userEntity);
+
+    @Query("SELECT COUNT(r) FROM KanjiRecordEntity r WHERE r.weight = 1.0 AND r.user = :user AND r.kanji.level = :level")
+    int countMasteredRecords(@Param("level") JLPTLevel level, @Param("user") UserEntity userEntity);
+
     Optional<KanjiRecordEntity> findFirstByUserAndKanjiLevel(UserEntity user, JLPTLevel level);
 }

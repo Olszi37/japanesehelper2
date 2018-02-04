@@ -90,4 +90,29 @@ public class KatakanaRecordService extends AbstractRecordService<KatakanaRecordE
     public void saveRecords(List<KatakanaRecordEntity> katakanaRecordEntities) {
         katakanaRecordRepository.save(katakanaRecordEntities);
     }
+
+    @Override
+    public int getUntouchedRecords(JLPTLevel level, UserEntity userEntity) {
+        return katakanaRecordRepository.countUntouchedRecords(userEntity);
+    }
+
+    @Override
+    public int getWeakKnownRecords(JLPTLevel level, UserEntity userEntity) {
+        return katakanaRecordRepository.countWeakKnownRecords(userEntity);
+    }
+
+    @Override
+    public int getMidKnownRecords(JLPTLevel level, UserEntity userEntity) {
+        return katakanaRecordRepository.getRecordsBetweenGroup2(userEntity).size();
+    }
+
+    @Override
+    public int getWellKnownRecords(JLPTLevel level, UserEntity userEntity) {
+        return katakanaRecordRepository.countWellKnownRecords(userEntity);
+    }
+
+    @Override
+    public int getMasteredRecords(JLPTLevel level, UserEntity userEntity) {
+        return katakanaRecordRepository.countMasteredRecords(userEntity);
+    }
 }

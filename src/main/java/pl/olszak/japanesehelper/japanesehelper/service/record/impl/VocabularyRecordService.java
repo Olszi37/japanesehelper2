@@ -90,4 +90,29 @@ public class VocabularyRecordService extends AbstractRecordService<VocabularyRec
     public void saveRecords(List<VocabularyRecordEntity> vocabularyRecordEntities) {
         vocabularyRecordRepository.save(vocabularyRecordEntities);
     }
+
+    @Override
+    public int getUntouchedRecords(JLPTLevel level, UserEntity userEntity) {
+        return vocabularyRecordRepository.countUntouchedRecords(level, userEntity);
+    }
+
+    @Override
+    public int getWeakKnownRecords(JLPTLevel level, UserEntity userEntity) {
+        return vocabularyRecordRepository.countWeakKnownRecords(level, userEntity);
+    }
+
+    @Override
+    public int getMidKnownRecords(JLPTLevel level, UserEntity userEntity) {
+        return vocabularyRecordRepository.getRecordsBetweenGroup2(level, userEntity).size();
+    }
+
+    @Override
+    public int getWellKnownRecords(JLPTLevel level, UserEntity userEntity) {
+        return vocabularyRecordRepository.countWellKnownRecords(level, userEntity);
+    }
+
+    @Override
+    public int getMasteredRecords(JLPTLevel level, UserEntity userEntity) {
+        return vocabularyRecordRepository.countMasteredRecords(level, userEntity);
+    }
 }

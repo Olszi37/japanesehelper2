@@ -90,4 +90,29 @@ public class KanjiRecordService extends AbstractRecordService<KanjiRecordEntity,
     public void saveRecords(List<KanjiRecordEntity> kanjiRecordEntities) {
         kanjiRecordRepository.save(kanjiRecordEntities);
     }
+
+    @Override
+    public int getUntouchedRecords(JLPTLevel level, UserEntity userEntity) {
+        return kanjiRecordRepository.countUntouchedRecords(level, userEntity);
+    }
+
+    @Override
+    public int getWeakKnownRecords(JLPTLevel level, UserEntity userEntity) {
+        return kanjiRecordRepository.countWeakKnownRecords(level, userEntity);
+    }
+
+    @Override
+    public int getMidKnownRecords(JLPTLevel level, UserEntity userEntity) {
+        return kanjiRecordRepository.getRecordsBetweenGroup2(level, userEntity).size();
+    }
+
+    @Override
+    public int getWellKnownRecords(JLPTLevel level, UserEntity userEntity) {
+        return kanjiRecordRepository.countWellKnownRecords(level, userEntity);
+    }
+
+    @Override
+    public int getMasteredRecords(JLPTLevel level, UserEntity userEntity) {
+        return kanjiRecordRepository.countMasteredRecords(level, userEntity);
+    }
 }

@@ -7,6 +7,7 @@ import pl.olszak.japanesehelper.japanesehelper.domain.enumerated.JLPTLevel;
 import pl.olszak.japanesehelper.japanesehelper.domain.record.RecordEntity;
 import pl.olszak.japanesehelper.japanesehelper.domain.user.UserEntity;
 import pl.olszak.japanesehelper.japanesehelper.dto.record.FlashcardDTO;
+import pl.olszak.japanesehelper.japanesehelper.dto.record.StatsDTO;
 import pl.olszak.japanesehelper.japanesehelper.dto.record.UserRecordDTO;
 import pl.olszak.japanesehelper.japanesehelper.security.SecurityUtils;
 import pl.olszak.japanesehelper.japanesehelper.service.user.UserService;
@@ -105,4 +106,23 @@ public abstract class AbstractRecordService<RECORD_ENTITY extends RecordEntity, 
     public abstract RECORD_ENTITY getRecord(Long id);
 
     public abstract void saveRecords(List<RECORD_ENTITY> entities);
+
+    public StatsDTO getStats(JLPTLevel level) {
+        UserEntity user = userService.findByLogin(SecurityUtils.getCurrentLoggedUserLogin())
+                .orElseThrow(() -> new EntityNotFoundException("User not found!"));
+
+        StatsDTO stats = new StatsDTO();
+        stats.setUntouched((long) getUntouchedRecords(level, user));
+        stats.setWeakKnown((long) getWeakKnownRecords(level, user));
+        stats.setMidKnown((long) getMidKnownRecords(level, user));
+        stats.setWellKnown((long) getWellKnownRecords(level, user));
+        stats.setMastered((long) getMasteredRecords(level, user));
+        return stats;
+    }
+
+    public abstract int getUntouchedRecords(JLPTLevel level, UserEntity userEntity);
+    public abstract int getWeakKnownRecords(JLPTLevel level, UserEntity userEntity);
+    public abstract int getMidKnownRecords(JLPTLevel level, UserEntity userEntity);
+    public abstract int getWellKnownRecords(JLPTLevel level, UserEntity userEntity);
+    public abstract int getMasteredRecords(JLPTLevel level, UserEntity userEntity);
 }

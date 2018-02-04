@@ -39,6 +39,12 @@ public class RecordController {
         return ResponseEntity.ok(flashcards);
     }
 
+    @GetMapping("/hiragana/stats")
+    public ResponseEntity<StatsDTO> getHiraganaStats() {
+        RecordService service = getRecordService(FlashcardType.HIRAGANA);
+        return ResponseEntity.ok(service.getStats(null));
+    }
+
     @PostMapping("/katakana")
     public ResponseEntity<Void> saveKatakana(@RequestBody List<UserRecordDTO> dtos) throws Exception {
         RecordService service = getRecordService(FlashcardType.KATAKANA);
@@ -51,6 +57,12 @@ public class RecordController {
         RecordService service = getRecordService(FlashcardType.KATAKANA);
         List<KanaFlashcardDTO> flashcards = ((KatakanaRecordService)service).getFlashcards(null, 0);
         return ResponseEntity.ok(flashcards);
+    }
+
+    @GetMapping("/katakana/stats")
+    public ResponseEntity<StatsDTO> getKatakanaStats() {
+        RecordService service = getRecordService(FlashcardType.KATAKANA);
+        return ResponseEntity.ok(service.getStats(null));
     }
 
     @PostMapping("/kanji")
@@ -67,6 +79,12 @@ public class RecordController {
         return ResponseEntity.ok(flashcards);
     }
 
+    @GetMapping("/kanji/{level}/stats")
+    public ResponseEntity<StatsDTO> getKanjiStats(@PathVariable JLPTLevel level) {
+        RecordService service = getRecordService(FlashcardType.KANJI);
+        return ResponseEntity.ok(service.getStats(level));
+    }
+
     @PostMapping("/vocabulary")
     public ResponseEntity<Void> saveVocabulary(@RequestBody List<UserRecordDTO> dtos) throws Exception {
         RecordService service = getRecordService(FlashcardType.VOCABULARY);
@@ -79,6 +97,12 @@ public class RecordController {
         RecordService service = getRecordService(FlashcardType.VOCABULARY);
         List<VocabularyFlashcardDTO> flashcards = ((VocabularyRecordService)service).getFlashcards(level, 0);
         return ResponseEntity.ok(flashcards);
+    }
+
+    @GetMapping("/vocabulary/{level}/stats")
+    public ResponseEntity<StatsDTO> getVocabularyStats(@PathVariable JLPTLevel level) {
+        RecordService service = getRecordService(FlashcardType.VOCABULARY);
+        return ResponseEntity.ok(service.getStats(level));
     }
 
     private RecordService getRecordService(FlashcardType type) {

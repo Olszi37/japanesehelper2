@@ -25,5 +25,17 @@ public interface VocabularyRecordRepository extends JpaRepository<VocabularyReco
     @Query("SELECT r FROM VocabularyRecordEntity r WHERE r.weight > 0.7 AND r.weight <= 1.0 AND r.vocabulary.level = :level AND r.user = :user")
     List<VocabularyRecordEntity> getRecordsBetweenGroup3(@Param("level") JLPTLevel level, @Param("user") UserEntity userEntity);
 
+    @Query("SELECT COUNT(r) FROM VocabularyRecordEntity r WHERE r.weight = 0.0 AND r.user = :user AND r.vocabulary.level = :level")
+    int countUntouchedRecords(@Param("level") JLPTLevel level, @Param("user") UserEntity userEntity);
+
+    @Query("SELECT COUNT(r) FROM VocabularyRecordEntity r WHERE r.weight > 0.0 AND r.weight < 0.4 AND r.user = :user AND r.vocabulary.level = :level")
+    int countWeakKnownRecords(@Param("level") JLPTLevel level, @Param("user") UserEntity userEntity);
+
+    @Query("SELECT COUNT(r) FROM VocabularyRecordEntity r WHERE r.weight > 0.7 AND r.weight < 1.0 AND r.user = :user AND r.vocabulary.level = :level")
+    int countWellKnownRecords(@Param("level") JLPTLevel level, @Param("user") UserEntity userEntity);
+
+    @Query("SELECT COUNT(r) FROM VocabularyRecordEntity r WHERE r.weight = 1.0 AND r.user = :user AND r.vocabulary.level = :level")
+    int countMasteredRecords(@Param("level") JLPTLevel level, @Param("user") UserEntity userEntity);
+
     Optional<VocabularyRecordEntity> findFirstByUserAndVocabularyLevel(UserEntity userEntity, JLPTLevel level);
 }

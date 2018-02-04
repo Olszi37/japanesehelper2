@@ -94,4 +94,29 @@ public class HiraganaRecordService extends AbstractRecordService<HiraganaRecordE
     public void saveRecords(List<HiraganaRecordEntity> hiraganaRecordEntities) {
         hiraganaRecordRepository.save(hiraganaRecordEntities);
     }
+
+    @Override
+    public int getUntouchedRecords(JLPTLevel level, UserEntity userEntity) {
+        return hiraganaRecordRepository.countUntouchedRecords(userEntity);
+    }
+
+    @Override
+    public int getWeakKnownRecords(JLPTLevel level, UserEntity userEntity) {
+        return hiraganaRecordRepository.countWeakKnownRecords(userEntity);
+    }
+
+    @Override
+    public int getMidKnownRecords(JLPTLevel level, UserEntity userEntity) {
+        return hiraganaRecordRepository.getRecordsBetweenGroup2(userEntity).size();
+    }
+
+    @Override
+    public int getWellKnownRecords(JLPTLevel level, UserEntity userEntity) {
+        return hiraganaRecordRepository.countWellKnownRecords(userEntity);
+    }
+
+    @Override
+    public int getMasteredRecords(JLPTLevel level, UserEntity userEntity) {
+        return hiraganaRecordRepository.countMasteredRecords(userEntity);
+    }
 }
