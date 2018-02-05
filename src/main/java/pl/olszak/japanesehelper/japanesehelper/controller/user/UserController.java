@@ -57,4 +57,9 @@ public class UserController {
         log.debug("REST request to check if the current user is authenticated");
         return request.getRemoteUser();
     }
+
+    @GetMapping("/logged-user")
+    public ResponseEntity<String> getLoggedUserLogin() {
+        return ResponseEntity.ok(service.getLoggedUserLogin());
+    }
 }

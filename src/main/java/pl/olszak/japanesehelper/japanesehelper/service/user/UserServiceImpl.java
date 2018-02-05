@@ -1,5 +1,6 @@
 package pl.olszak.japanesehelper.japanesehelper.service.user;
 
+import com.google.common.base.Strings;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -58,5 +59,11 @@ public class UserServiceImpl extends AbstractService<UserEntity, UserDTO, Long> 
             String encryptedPassword = passwordEncoder.encode(password);
             user.setPassword(encryptedPassword);
         });
+    }
+
+    @Override
+    public String getLoggedUserLogin() {
+        String login = SecurityUtils.getCurrentLoggedUserLogin();
+        return Strings.isNullOrEmpty(login) ? "" : login;
     }
 }
