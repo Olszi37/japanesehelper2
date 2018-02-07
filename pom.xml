@@ -103,6 +103,24 @@
 
 	</dependencies>
 
+	<profiles>
+		<profile>
+			<id>dev</id>
+			<activation>
+				<activeByDefault>true</activeByDefault>
+			</activation>
+			<properties>
+				<activeProfile>dev</activeProfile>
+			</properties>
+		</profile>
+		<profile>
+			<id>test</id>
+			<properties>
+				<activeProfile>test</activeProfile>
+			</properties>
+		</profile>
+	</profiles>
+
 	<build>
 		<plugins>
 			<plugin>
@@ -111,7 +129,6 @@
 				<configuration>
 					<profiles>
 						<profile>dev</profile>
-						<profile>test</profile>
 					</profiles>
 				</configuration>
 			</plugin>
