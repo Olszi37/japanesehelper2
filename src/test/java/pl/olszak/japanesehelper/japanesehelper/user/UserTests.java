@@ -29,11 +29,11 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @SpringBootTest(classes = JapanesehelperApplication.class)
 public class UserTests {
 
-    private static final String USER_LOGIN = "newLogin";
+    private static final String USER_LOGIN = "newAnotherLogin";
 
     private static final String USER_PASSWORD = "somePassword";
 
-    private static final String USER_EMAIL = "some@email.com";
+    private static final String USER_EMAIL = "some2@email.com";
 
     @Autowired
     private UserRepository userRepository;

@@ -25,7 +25,7 @@ import pl.olszak.japanesehelper.japanesehelper.service.user.UserService;
 import pl.olszak.japanesehelper.japanesehelper.util.FetcherResultUtil;
 
 import java.util.List;
-import java.util.concurrent.atomic.AtomicInteger;
+import java.util.Random;
 import java.util.stream.Collectors;
 
 @RunWith(SpringRunner.class)
@@ -55,33 +55,6 @@ public class VocabularyRecordTest {
 
     private MockMvc restHiraganaRecordMock;
 
-    private double[] weights1 = {0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.1, 0.2, 0.15, 0.1,
-            0.0, 0.45, 0.45, 0.25, 0.1, 0.7, 0.0, 0.2, 0.4, 0.9,
-            0.5, 0.55, 0.6, 0.25, 0.25, 0.2, 0.75, 0.8, 0.45, 0.4,
-            0.4, 0.95, 0.9, 0.8, 1.0, 0.6, 0.75, 0.75, 0.8, 0.9,
-            0.75, 0.65, 0.2, 0.3, 0.35, 0.25 }; //TODO BAKA! list have more than 46 signs
-
-    private double[] weights2 = {0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.1,
-            0.0, 0.0, 0.0, 0.25, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0,
-            0.3, 0.2, 0.6, 0.2, 0.1, 0.2, 0.65, 0.3, 0.3, 0.4,
-            0.4, 0.15, 0.6, 0.5, 0.55, 0.35, 0.5, 0.5, 0.6, 0.65,
-            0.15, 0.65, 0.2, 0.3, 0.35, 0.25 };
-
-    private double[] weights3 = {1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0,
-            1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0,
-            1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0,
-            0.9, 0.95, 0.9, 0.65, 0.5, 0.6, 0.45, 0.4, 0.6, 0.55,
-            0.7, 0.65, 0.65, 0.5, 0.45, 0.55 };
-
-//    @Before
-//    public void setup() {
-//        MockitoAnnotations.initMocks(this);
-//        Vocabulary hiraganaRecordController = new HiraganaRecordController();
-//        this.restHiraganaRecordMock = MockMvcBuilders.standaloneSetup(hiraganaRecordController)
-//                .setMessageConverters(jacksonMessageConverter).build();
-//    }
-
-
     public List<VocabularyRecordEntity> getRecordSetWithEmptyWeights() {
         return vocabularyRecordRepository.findAll();
     }
@@ -109,8 +82,8 @@ public class VocabularyRecordTest {
 
         List<VocabularyRecordEntity> setOne = vocabularyRecordRepository.findAll();
 
-        AtomicInteger i = new AtomicInteger(0);
-        setOne = setOne.stream().peek(entity -> entity.setWeight(weights1[i.getAndIncrement()]))
+        Random random = new Random();
+        setOne = setOne.stream().peek(entity -> entity.setWeight(random.nextInt(10) * 0.1))
                 .collect(Collectors.toList());
         vocabularyRecordRepository.save(setOne);
     }
@@ -134,8 +107,8 @@ public class VocabularyRecordTest {
 
         List<VocabularyRecordEntity> setOne = vocabularyRecordRepository.findAll();
 
-        AtomicInteger i = new AtomicInteger(0);
-        setOne = setOne.stream().peek(entity -> entity.setWeight(weights2[i.getAndIncrement()]))
+        Random random = new Random();
+        setOne = setOne.stream().peek(entity -> entity.setWeight(random.nextInt(5) * 0.1))
                 .collect(Collectors.toList());
         vocabularyRecordRepository.save(setOne);
     }
@@ -147,8 +120,8 @@ public class VocabularyRecordTest {
 
         List<VocabularyRecordEntity> setOne = vocabularyRecordRepository.findAll();
 
-        AtomicInteger i = new AtomicInteger(0);
-        setOne = setOne.stream().peek(entity -> entity.setWeight(weights3[i.getAndIncrement()]))
+        Random random = new Random();
+        setOne = setOne.stream().peek(entity -> entity.setWeight((random.nextInt(4) + 6) * 0.1))
                 .collect(Collectors.toList());
         vocabularyRecordRepository.save(setOne);
     }
@@ -173,7 +146,6 @@ public class VocabularyRecordTest {
     public void fetchFlashcardsTest1() throws Exception {
         UserEntity user = getUser();
         saveRecordSetOne();
-//        HiraganaFetcher fetcher = new HiraganaFetcher(hiraganaRecordRepository);
         VocabularyFetcher fetcher = (VocabularyFetcher) getVocabularyFetcher();
 
         List<VocabularyRecordEntity> fetched = fetcher.getFlashcards(JLPTLevel.N5, user);
@@ -185,7 +157,6 @@ public class VocabularyRecordTest {
     public void fetchFlashcardsTest2() throws Exception {
         UserEntity user = getUser();
         saveRecordSetTwo();
-//        HiraganaFetcher fetcher = new HiraganaFetcher(hiraganaRecordRepository);
         VocabularyFetcher fetcher = (VocabularyFetcher) getVocabularyFetcher();
 
         List<VocabularyRecordEntity> fetched = fetcher.getFlashcards(JLPTLevel.N5, user);
